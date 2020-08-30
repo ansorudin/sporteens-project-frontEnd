@@ -7,3 +7,20 @@
     height: auto;
     position: relative;
 }
+
+.gambar-card{
+    height: auto;
+    max-width: 100%;
+    z-index: initial;
+}
+
+.gambar-border{
+    margin: 8px 8px 0 8px;
+    border-color: lightgray;
+    height: 250px;
+
+}
+
+.border-card{
+    box-shadow: 1px 1px 9px black;
+}

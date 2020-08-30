@@ -5,7 +5,8 @@ const linkApiProduct = 'http://localhost:2000/product'
 
 class ListProduct extends Component {
     state ={
-        data : null
+        data : null,
+        hovered : false
     }
 
     componentDidMount(){
@@ -23,14 +24,19 @@ class ListProduct extends Component {
             console.log(err)
         })
     }
+    
+    toggleHover = () => {
+        this.setState({hovered : !this.state.hovered})
+    }
+    
 
     mapDataProduct = () => {
         return this.state.data.map((val) => {
             return(
-                <div className="col-md-3 mt-4 mb-3">
-                    <div className="border rounded">
-                        <div className='rounded d-flex justify-content-center'>
-                            <img src={val.image1} className='card-image-top align-self-center img-fluid' alt='gambar gagal'/>
+                <div className="col-md-3 mt-4 mb-3 sporteens-clickable-el">
+                    <div className={this.state.hovered ? "border rounded border-card" : "border rounded"} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
+                        <div className='rounded d-flex justify-content-center gambar-border border'>
+                            <img src={val.image1} className='card-image-top align-self-center img-fluid gambar-card' alt='gambar gagal'/>
                         </div>
                         <div className="card-body">
                             <h5 className='card-title'>{val.name}</h5>
@@ -51,9 +57,11 @@ class ListProduct extends Component {
             return (
                 <div>
                     <div className="container ">
-                        <div className="row">
-                         {this.mapDataProduct()}
-                        </div>
+                        
+                            <div className="row">
+                            {this.mapDataProduct()}
+                            </div>
+                        
                     </div>
                 </div>
             );
