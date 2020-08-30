@@ -1,0 +1,59 @@
+.sporteens-clickable-el{
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+.sporteens-link{
+    color: inherit;
+    text-decoration: inherit;
+}
+
+a{
+    text-decoration: none;
+  }
+
+a:hover{
+    text-decoration: none;
+    color: inherit;
+}
+
+
+
+
+.navbar-sporteens{
+    box-shadow: 1px 1px 8px rgba(27,38,44,0.8) ;
+    z-index: 2;
+    position: relative;
+}
+
+.sporteens-navbar-top{
+    position: sticky;
+    font-size: small;
+    
+}
+
+.tombol-light{
+    color: var(--light);
+    border-color: var(--light);
+    box-shadow: var(--light);
+}
+
+tombol-light:hover{
+    background-color: var(--main-dark);
+    box-shadow: inherit;
+}
+
+.tombol-dark{
+    color: var(--main-dark);
+    border-color: var(--main-dark);
+}
+
+tombol-dark:hover{
+    background-color: var(--main-dark);
+    box-shadow: inherit;
+}
+
+
