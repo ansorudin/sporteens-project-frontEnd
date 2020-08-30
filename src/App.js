@@ -4,6 +4,7 @@ import './support/Component.css'
 import './support/Utilities.css'
 import './support/LandingPage.css'
 import './support/registrasi.css'
+import './support/detailProduct.css'
 import {BrowserRouter,Route,Switch} from 'react-router-dom'
 import LandingPage from './pages/LandingPage.jsx'
 import ListProduct from './pages/ListProduct.jsx'
@@ -20,14 +21,14 @@ class App extends React.Component{
       <BrowserRouter>
         <div>
           <Navbar/> 
-          <DetailProduct />
-          {/* <Switch>
+          <Switch>
             <Route exact path='/' component={LandingPage} />
             <Route path='/products' component={ListProduct} />
             <Route path='/brands' component={Brands} />
             <Route path='/carts' component={Cart} />
             <Route path='/register' component={Registrasi} />
-          </Switch> */}
+            <Route path='/detail-product' component={DetailProduct} />
+          </Switch>
         </div>
       </BrowserRouter>
     )

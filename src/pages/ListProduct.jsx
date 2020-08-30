@@ -16,7 +16,7 @@ class ListProduct extends Component {
     getDataProduct = () =>{
         Axios.get(linkApiProduct)
         .then((res) => {
-            console.log(res.data[0].name)
+            // console.log(res.data[0].name)
             this.setState({data : res.data})
         })
         .catch((err) => {
@@ -27,7 +27,6 @@ class ListProduct extends Component {
     mapDataProduct = () => {
         return this.state.data.map((val) => {
             return(
-                
                 <div className="col-md-3 mt-4 mb-3">
                     <div className="border rounded">
                         <div className='rounded d-flex justify-content-center'>

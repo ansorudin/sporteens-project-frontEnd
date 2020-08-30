@@ -1,0 +1,9 @@
+.sporteens-container-detail-product{
+    height: 85vh;
+}
+
+.gambar-thumbnail{
+    max-width: 100%;
+    height: auto;
+    position: relative;
+}
