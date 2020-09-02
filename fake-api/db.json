@@ -1,24 +1,161 @@
 {
-    "user" : [
-        {
-            "id" : 1,
-            "phone" : "082111014768",
-            "email" : "",
-            "password" : "123123"
-        }
-    ],
-
-    "product" : [
-        {
-            "id" : 1,
-            "name" : "Nike Air Jardan XXXXXX",
-            "price" : 2000000,
-            "discount" : 10,
-            "image1" : "https://nb.scene7.com/is/image/NB/m990gl5_nb_02_i_b18d5b026e4d44da9d20?$pdpPictExp$",
-            "image2" : "https://nb.scene7.com/is/image/NB/m990gl5_nb_04_i_9c5ea162fc214b61972c?$pdpPictExp$",
-            "image3" : "https://nb.scene7.com/is/image/NB/m990gl5_nb_05_i?$pdpPictExp$",
-            "brand" : "Nike",
-            "stock" : 5
-        }
-    ]
+  "user": [
+    {
+      "id": 1,
+      "phone": "082111014768",
+      "email": "",
+      "password": "123123"
+    },
+    {
+      "email": "ahmad@gmail.com",
+      "phone": "",
+      "password": "intangsahara8",
+      "id": 2
+    }
+  ],
+  "product": [
+    {
+      "id": 1,
+      "name": "Anaheim Factory Old Skool 36 DX",
+      "brand": "Vans",
+      "price": 2250000,
+      "discount": 15,
+      "Stock": 10,
+      "image1": "https://culture-kings-us.imgix.net/products/191479053601_normal_0020.jpg?v=1597012635&auto=compress,format",
+      "image2": "https://culture-kings-us.imgix.net/products/191479053601_normal_0021.jpg?v=1597012635&auto=compress,format",
+      "image3": "https://culture-kings-us.imgix.net/products/191479053601_normal_0023.jpg?v=1597012635&auto=compress,format"
+    },
+    {
+      "id": 2,
+      "name": "Air Force 1 '07",
+      "brand": "Nike",
+      "price": 9500000000,
+      "discount": 0,
+      "Stock": 2,
+      "image1": "https://culture-kings-us.imgix.net/products/05000949-YW240_normal_0021.jpg?v=1583468912&auto=compress,format",
+      "image2": "https://culture-kings-us.imgix.net/products/05000949-YW240_normal_0022.jpg?v=1583468912&auto=compress,format",
+      "image3": "https://culture-kings-us.imgix.net/products/05000949-YW240_normal_0024.jpg?v=1583468912&auto=compress,format"
+    },
+    {
+      "id": 3,
+      "name": "Anaheim Factory Old Skool 36 DX",
+      "brand": "Vans",
+      "price": 2500000,
+      "discount": 25,
+      "Stock": 10,
+      "image1": "https://culture-kings-us.imgix.net/products/191167240610_normal_0020.jpg?v=1597012560&auto=compress,format",
+      "image2": "https://culture-kings-us.imgix.net/products/191167240610_normal_0021.jpg?v=1597012560&auto=compress,format",
+      "image3": "https://culture-kings-us.imgix.net/products/191167240610_normal_0023.jpg?v=1597012560&auto=compress,format"
+    },
+    {
+      "id": 4,
+      "name": "Authentic - All Black",
+      "brand": "Vans",
+      "price": 700000,
+      "discount": 0,
+      "Stock": 10,
+      "image1": "https://culture-kings-us.imgix.net/products/700053288911_normal_01.jpg?v=1574230837&auto=compress,format",
+      "image2": "https://culture-kings-us.imgix.net/products/700053288911_normal_02.jpg?v=1574230837&auto=compress,format",
+      "image3": "https://culture-kings-us.imgix.net/products/700053288911_normal_04.jpg?v=1574230837&auto=compress,format"
+    },
+    {
+      "id": 5,
+      "name": "SK8-HI - Black and White",
+      "brand": "Vans",
+      "price": 850000,
+      "discount": 35,
+      "Stock": 25,
+      "image1": "https://culture-kings-us.imgix.net/products/700053630000_normal_01.jpg?v=1574230796&auto=compress,format",
+      "image2": "https://culture-kings-us.imgix.net/products/700053630000_normal_02.jpg?v=1574230796&auto=compress,format",
+      "image3": "https://culture-kings-us.imgix.net/products/700053630000_normal_04.jpg?v=1574230796&auto=compress,format"
+    },
+    {
+      "id": 6,
+      "name": "Era - Classic Black and White",
+      "brand": "Vans",
+      "price": 1475000,
+      "discount": 45,
+      "Stock": 10,
+      "image1": "https://culture-kings-us.imgix.net/products/05003343-YB012_normal_001.jpg?v=1578006371&auto=compress,format",
+      "image2": "https://culture-kings-us.imgix.net/products/05003343-YB012_normal_002.jpg?v=1578006371&auto=compress,format",
+      "image3": "https://culture-kings-us.imgix.net/products/05003343-YB012_normal_004.jpg?v=1578006371&auto=compress,format"
+    },
+    {
+      "id": 7,
+      "name": "OLD SKOOL - Leather All White",
+      "brand": "Vans",
+      "price": 1200000,
+      "discount": 0,
+      "Stock": 10,
+      "image1": "https://culture-kings-us.imgix.net/products/700053804678_normal_01.jpg?v=1574226952&auto=compress,format",
+      "image2": "https://culture-kings-us.imgix.net/products/700053804678_normal_02.jpg?v=1574226952&auto=compress,format",
+      "image3": "https://culture-kings-us.imgix.net/products/700053804678_normal_04.jpg?v=1574226952&auto=compress,format"
+    },
+    {
+      "id": 8,
+      "name": "Chuck Taylor All Star 70 Low - Black and White",
+      "brand": "Converse",
+      "price": 990000,
+      "discount": 25,
+      "Stock": 10,
+      "image1": "https://culture-kings-us.imgix.net/products/888755676899_normal_0020.jpg?v=1597119127&auto=compress,format",
+      "image2": "https://culture-kings-us.imgix.net/products/888755676899_normal_0021.jpg?v=1597119127&auto=compress,format",
+      "image3": "https://culture-kings-us.imgix.net/products/888755676899_normal_0023.jpg?v=1597119127&auto=compress,format"
+    },
+    {
+      "id": 9,
+      "name": "Chuck Taylor All Star 70 High Top - Black and White",
+      "brand": "Converse",
+      "price": 1100000,
+      "discount": 0,
+      "Stock": 10,
+      "image1": "https://culture-kings-us.imgix.net/products/888755658550_normal_0020.jpg?v=1596688161&auto=compress,format",
+      "image2": "https://culture-kings-us.imgix.net/products/888755658550_normal_0021.jpg?v=1596688161&auto=compress,format",
+      "image3": "https://culture-kings-us.imgix.net/products/888755658550_normal_0023.jpg?v=1596688161&auto=compress,format"
+    },
+    {
+      "id": 10,
+      "name": "Chuck Taylor All Star 70 High Top - Red and White",
+      "brand": "Converse",
+      "price": 820000,
+      "discount": 10,
+      "Stock": 10,
+      "image1": "https://culture-kings-us.imgix.net/products/888757074723_normal_0020.jpg?v=1590749172&auto=compress,format",
+      "image2": "https://culture-kings-us.imgix.net/products/888757074723_normal_0021.jpg?v=1590749172&auto=compress,format",
+      "image3": "https://culture-kings-us.imgix.net/products/888757074723_normal_0023.jpg?v=1590749173&auto=compress,format"
+    },
+    {
+      "id": 11,
+      "name": "Los Angeles Dodgers Drip Logo 9FORTY A-Frame Snapback",
+      "brand": "New Era",
+      "price": 450000,
+      "discount": 10,
+      "Stock": 10,
+      "image1": "https://culture-kings-us.imgix.net/products/01014906-YB001_normal_020.jpg?v=1571179943&auto=compress,format",
+      "image2": "https://culture-kings-us.imgix.net/products/01014906-YB001_normal_021.jpg?v=1571179943&auto=compress,format",
+      "image3": "https://culture-kings-us.imgix.net/products/01014906-YB001_normal_022.jpg?v=1571179943&auto=compress,format"
+    },
+    {
+      "id": 12,
+      "name": "Baseball Classic Trefoil Strapback",
+      "brand": "Adidas",
+      "price": 650000,
+      "discount": 30,
+      "Stock": 10,
+      "image1": "https://culture-kings-us.imgix.net/products/4061612072317_normal_0020.jpg?v=1598336291&auto=compress,format",
+      "image2": "https://culture-kings-us.imgix.net/products/4061612072317_normal_0022.jpg?v=1598336291&auto=compress,format",
+      "image3": "https://culture-kings-us.imgix.net/products/4061612072317_normal_0021.jpg?v=1598336291&auto=compress,format"
+    },
+    {
+      "id": 13,
+      "name": "Baseball Classic Trefoil Strapback",
+      "brand": "Adidas",
+      "price": 650000,
+      "discount": 30,
+      "Stock": 10,
+      "image1": "https://culture-kings-us.imgix.net/products/4061612072317_normal_0020.jpg?v=1598336291&auto=compress,format",
+      "image2": "https://culture-kings-us.imgix.net/products/4061612072317_normal_0022.jpg?v=1598336291&auto=compress,format",
+      "image3": "https://culture-kings-us.imgix.net/products/4061612072317_normal_0021.jpg?v=1598336291&auto=compress,format"
+    }
+  ]
 }

@@ -11,7 +11,7 @@
 .gambar-card{
     height: auto;
     max-width: 100%;
-    z-index: initial;
+    z-index: -1;
 }
 
 .gambar-border{

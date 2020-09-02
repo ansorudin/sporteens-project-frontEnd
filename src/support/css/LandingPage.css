@@ -36,3 +36,22 @@
     bottom: 0;
     
 }
+
+.sporteens-bg-banner{
+    background-image: linear-gradient(to top, #364f6b 0%, #71c9ce 100%, #71c9ce 100%, #71c9ce 100%);
+}
+
+
+/* flas sale */
+
+.sporteens-thumbnail-img{
+    max-width: 100%;
+    max-height: auto;
+    z-index: -1;
+    
+    
+}
+.sporteens-thumbnail-border{
+    margin: 5px 5px 0 5px;
+    height: 200px;
+}

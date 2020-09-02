@@ -1,0 +1,114 @@
+:root {
+    --main: #f38181;
+    --secondary : #b9e1dc;
+    --black : #222831;
+    --light : #fbfbfb;
+    --main-dark : #4797b1;
+}
+
+
+
+.sporteens-main{
+    color: var(--main);
+}
+
+.sporteens-main-dark{
+    color: var(--main-dark);
+}
+
+.sporteens-secondary{
+    color: var(--secondary);
+}
+
+.sporteens-black{
+    color: var(--black);
+}
+
+.sporteens-light {
+    color: var(--light);
+}
+
+
+
+.sporteens-bg-main{
+    background-color: var(--main);
+}
+
+
+.sporteens-bg-main-dark{
+    background-color: var(--main-dark);
+}
+
+.sporteens-bg-secondary{
+    background-color: var(--secondary);
+}
+
+.sporteens-bg-black{
+    background-color: var(--black);
+}
+
+.sporteens-bg-light {
+    background-color: var(--light);
+}
+
+/* Fonts Utils */
+
+.sporteens-font-8{
+    font-size: 8px;
+}
+
+.sporteens-font-10{
+    font-size: 10px;
+}
+
+.sporteens-font-12{
+    font-size: 12px;
+}
+.sporteens-font-14{
+    font-size: 14px;
+}
+
+.sporteens-font-16{
+    font-size: 16px;
+}
+
+.sporteens-font-20{
+    font-size: 20px;
+}
+
+
+/* Shadow */
+
+.sporteens-shadow{
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.5);
+}
+
+.sporteens-input:focus{
+    outline: none;
+}
+
+
+/* Garis horizontal */
+
+.sporteens-text-ditengah-line{
+    width: 100%; 
+    text-align: center; 
+    border-bottom: 1px solid #000; 
+    line-height: 0.1em;
+    margin: 10px 0 20px; 
+}
+.sporteens-text-ditengah-text{
+    background:#fff; 
+    padding:0 20px; 
+}
+
+/* Link */
+
+.my-link{
+    color: inherit;
+    text-decoration: none;
+}
+.my-link:hover{
+    color: inherit;
+    text-decoration: none;
+}

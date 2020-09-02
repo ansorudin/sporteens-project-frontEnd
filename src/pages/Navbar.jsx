@@ -3,13 +3,52 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faTimes, faUser, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import ModalLogin from '../component/ModalLogin';
 import {Link} from 'react-router-dom'
+import Axios from "axios";
+import apiUrl from "../support/constant/apiUrl";
 
 export class Navbar extends Component{
     state ={
-        openToggle : false
+        openToggle : false,
+        isLogin : false,
+        data : null
+    }
+
+    componentDidMount(){
+        this.getIdUser()
+    }
+
+    onLogout = () => {
+        if(window.confirm('are you sure want to logout ??')){
+            localStorage.removeItem('id')
+            window.location = '/'
+        }else{
+            window.location = '/'
+        }
+
     }
 
    
+    getIdUser = () => {
+        // get value di local storage ('id' adalah valuenya)
+        var id = localStorage.getItem('id')
+        if(id){
+            this.setState({isLogin : true})
+            Axios.get(apiUrl + 'user/' + id)
+            .then((res) => {
+                if(res.data.email){
+                    this.setState({data : res.data.email})
+                }else{
+                    this.setState({data : res.data.phone})
+                }
+            })
+            .catch((err) =>{
+                console.log(err)
+                alert(err.message)
+            })
+        }else{
+            this.setState({isLogin : false})
+        }
+    }
     render(){
         return (
             <div>
@@ -17,16 +56,26 @@ export class Navbar extends Component{
                 <div className="container">
                     <div className="row justify-content-end">
                         <div className='mr-3 sporteens-navbar-top d-none d-md-block'>
-                            <div className="d-flex">
-                                <FontAwesomeIcon icon={faUser}/>
-                                <ModalLogin title='Login' margin='10px'/>
-                                <span className='mx-1'> / </span> 
-                                <Link to='/register' className='sporteens-clickable-el sporteens-link'>Register</Link>
-                            </div>
-                        </div>
-                        <div className='mr-3 sporteens-navbar-top d-none d-md-block'>
-                            <FontAwesomeIcon icon={faShoppingCart} />
-                            <Link to='/carts' className='ml-2 sporteens-clickable-el sporteens-link'>Cart</Link>
+                            {
+                                this.state.isLogin ? 
+                                    <div className='sporteens-navbar-top d-none d-md-block'>
+                                        <FontAwesomeIcon icon={faShoppingCart} />
+                                        <Link to='/carts' className='ml-2 sporteens-clickable-el sporteens-link'>Cart</Link>
+                                        <span className='mx-1'> / </span> 
+                                        <Link onClick={this.onLogout} to='/user-detail' className='sporteens-clickable-el sporteens-link'>
+                                            {this.state.data ? this.state.data.slice(0,4) + '...' : null}
+                                        </Link>
+                                    </div>
+                                :
+                                <div className="d-flex">
+                                    <FontAwesomeIcon icon={faUser}/>
+                                    <ModalLogin title='Login' margin='10px'/>
+                                    <span className='mx-1'> / </span> 
+                                    <Link to='/register' className='sporteens-clickable-el sporteens-link'>Register</Link>
+                                </div>
+
+
+                            }
                         </div>
                     </div>
                 </div>

@@ -2,11 +2,12 @@
     background-image: url('https://images.unsplash.com/photo-1508599589920-14cfa1c1fe4d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1984&q=80');
     background-size: cover;
     background-position: center;
+    box-shadow: 2px 0px 5px 0px rgba(43,40,43,1);
     
 }
 
 .sporteens-register{
-    height: 85vh;
+    height: 88vh;
 }
 
 .sporteens-register-bg::after{
@@ -20,6 +21,6 @@
     
 }
 
-.sporteens-register-form{
+/* .sporteens-register-form{
     box-shadow: 0px 0px 5px 0px rgba(43,40,43,1);
-}
+} */
