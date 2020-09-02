@@ -130,9 +130,16 @@ export class Navbar extends Component{
                             <div className="mt-3 border-bottom sporteens-clickable-el">
                                 Brands
                             </div>
-                            <div className="mt-3 border-bottom sporteens-clickable-el">
-                                Carts
-                            </div>
+                            {
+                                this.state.isLogin ? 
+                                <div className="mt-3 border-bottom sporteens-clickable-el">
+                                    Carts
+                                </div>
+                                :
+                                <div className="mt-3 border-bottom sporteens-clickable-el d-flex">
+                                    <Link className='my-link mr-1' to='/register'>Register</Link> / <ModalLogin title='Login' margin='5px'/>
+                                </div>
+                            }
                         </div>
                     : null
                     } 
