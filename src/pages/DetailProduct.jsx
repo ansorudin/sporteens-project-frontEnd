@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import Axios from 'axios'
 import apiUrl from '../support/constant/apiUrl';
-
-import { Modal } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import ModalLogin from '../component/ModalLogin';
 
 
 
 class DetailProduct extends Component {
     state = {
         data : null,
-        selectId : 1,
-        showLogin : false
+        selectPhoto : null,
+        isLogin : false
     }
     componentDidMount(){
         this.getDataDetailProduct()
@@ -21,7 +19,7 @@ class DetailProduct extends Component {
         var id = this.props.match.params.bebas
         Axios.get(apiUrl + 'product/' + id)
         .then((res) => {
-            this.setState({data : res.data})
+            this.setState({data : res.data, selectPhoto : res.data.image1})
             
         })
         .catch((err) => {
@@ -30,28 +28,6 @@ class DetailProduct extends Component {
     }
 
   
-  
-    imageBesar = () =>{
-        if(this.state.selectId === 1){
-            return(
-            <div className="h-100 d-flex align-items-center">
-                <img src={this.state.data.image1} alt="gagal" className='gambar-thumbnail'/>          
-            </div>
-            )
-        }else if(this.state.selectId === 2){
-            return(
-            <div className="h-100 d-flex align-items-center">
-                <img src={this.state.data.image2} alt="gagal" className='gambar-thumbnail'/>          
-            </div>
-            )
-        }else{
-            return(
-            <div className="h-100 d-flex align-items-center">
-                <img src={this.state.data.image3} alt="gagal" className='gambar-thumbnail'/>          
-            </div>
-            )
-        }
-    }
 
     handleModal = () => {
         this.setState({showLogin: !this.state.showLogin})
@@ -79,50 +55,29 @@ class DetailProduct extends Component {
         if(this.state.data !== null){
             return (  
                 <div>
-                    <Modal show={this.state.showLogin} onHide={() => this.handleModal()}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Login</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <div className="container p-3">
-                        <form>
-                            <div className="form-group px-4">
-                                <label>Username : </label>
-                                <input type="text" placeholder='Enter your email or phone' className='form-control'/>
-                            </div>
-                            <div className="form-group px-4">
-                                <label>Password : </label>
-                                <input type="password" placeholder='Enter your password' className='form-control'/>
-                            </div>
-                            <div className="form-group px-4">
-                                <input type="button" value="Submit" className='btn tombol-dark'/>
-                            </div>
-                        </form>
-                            <p className='p-0 m-0 mt-5 text-center'>Not have account ? Register <Link to='/register' className='my-link' onClick={() => this.handleModal()}><span className='font-weight-bold'>here</span></Link></p>
-                        </div>
-                    </Modal.Body>
-                </Modal>
                     <div className="container sporteens-container-detail-product mb-5 ">
                         <div className="row  h-75 mt-5">
                             <div className="col-6 sporteens-detail-product-image ">
                                 <div className="container h-100">
                                     <div className="row h-100 ">
                                         <div className=' col-12 h-75'>
-                                           {this.imageBesar()}
+                                            <div className="h-100 d-flex align-items-center">
+                                                <img src={this.state.selectPhoto} alt="gagal" className='gambar-thumbnail'/>          
+                                            </div>
                                         </div>
                                         <div className="h-25 col-12">
                                         <div className="row h-100 justify-content-center  mt-4">
-                                            <div className="col-3 p-2 sporteens-clickable-el" onClick={() => this.setState({selectId : 1})}>
+                                            <div className="col-3 p-2 sporteens-clickable-el">
                                                 <div className="">
-                                                    <img src={this.state.data.image1} alt="gagal" className='gambar-thumbnail'/>          
+                                                    <img src={this.state.data.image1} alt="gagal" className='gambar-thumbnail' onClick={() => this.setState({selectPhoto : this.state.data.image1})}/>          
                                                 </div>
                                             </div>
-                                            <div className="col-3 p-2 sporteens-clickable-el" onClick={() => this.setState({selectId : 2})}>
+                                            <div className="col-3 p-2 sporteens-clickable-el" onClick={() => this.setState({selectPhoto : this.state.data.image2})}>
                                                 <div className="">
                                                     <img src={this.state.data.image2}  alt="gagal" className='gambar-thumbnail'/>          
                                                 </div>
                                             </div>
-                                            <div className="col-3 p-2 sporteens-clickable-el" onClick={() => this.setState({selectId : 3})}>
+                                            <div className="col-3 p-2 sporteens-clickable-el" onClick={() => this.setState({selectPhoto : this.state.data.image3})}>
                                                 <div className="">
                                                     <img src={this.state.data.image3}  alt="gagal" className='gambar-thumbnail'/>          
                                                 </div>
@@ -178,10 +133,21 @@ class DetailProduct extends Component {
                                             </div>
                                             <div className='row'>
                                                 <div className="col-8">
-                                                    <input type="button" value="Add to Chart" className='btn tombol-dark btn-block' onClick={this.onAddToCartBtn}/>
+                                                    {
+                                                        this.state.isLogin ?
+                                                        <input type="button" value="Add to Chart" className='btn tombol-dark btn-block' />
+                                                       :
+                                                       <ModalLogin isi='Add to Chart' className='btn tombol-dark btn-block'/>
+                                                    }
+
                                                 </div>
                                                 <div className="col-3">
-                                                    <input type="button" value="Add to Wishlist" className='btn tombol-dark' onClick={this.onAddWishlistBtn}/>
+                                                    {
+                                                        this.state.isLogin ?
+                                                        <input type="button" value="Add to Wishlist" className='btn tombol-dark' />
+                                                       :
+                                                       <ModalLogin isi='Add to Wishlist' className='btn tombol-dark' />
+                                                    }
                                                 </div>
                                             </div>
                                         </div>

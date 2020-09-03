@@ -107,7 +107,7 @@ class Registrasi extends Component {
                                         </div>
                                         <div className='col-8 d-flex justify-content-center mt-5'>
                                             <span className=''>Sudah punya akun ? </span>
-                                            <ModalLogin title='Masuk' margin='5px' tebal='600'/> 
+                                            <ModalLogin isi='Masuk' className='ml-2 font-weight-bold sporteens-clickable-el'/> 
                                         </div>
                                     </div>
                                 </div>

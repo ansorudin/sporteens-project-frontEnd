@@ -8,9 +8,12 @@ import Axios from 'axios';
 import apiUrl from '../support/constant/apiUrl';
 
 
+
 class ModalLogin extends Component {
     state ={
         showLogin : false,
+        errorMessage : '',
+        errorMessagePass : ''
     }
     handleModal = () =>{
         this.setState({showLogin: !this.state.showLogin})
@@ -20,40 +23,55 @@ class ModalLogin extends Component {
         var value = this.refs.userName.value
         var pass = this.refs.pass.value
 
-        if(Number(value[0]) >= 0){
-            if(phoneNumberValidator(value) === true) {
-                alert('berhasil')
-                
-                // kirim ke api
-                this.sendDataToApi({phone : value, email : "", password : pass})
+        // jika value or pass ada
+        if(value && pass){
+            
+            if(Number(value[0]) >= 0){
+                if(phoneNumberValidator(value) === true) {
+                    // alert('berhasil')
+
+                    // Jalankan fungsi send data to api dengan value(phone : diisi value phone, email : kosong, password : value password)
+                    this.sendDataToApi({phone : value, email : "", password : pass})
+                }else{
+                    this.setState({errorMessage : phoneNumberValidator(value)})
+                    // munculin error message phone 
+                }
             }else{
-                this.setState({errorMessage : phoneNumberValidator(value)})
-                // munculin error message
+                if(emailValidator(value) === true){
+
+                    // Jalankan fungsi send data to api dengan value(phone : diisi value phone, email : kosong, password : value password)
+                    this.sendDataToApi({email : value, phone : "", password : pass})
+                   
+                }else{
+                    // munculin error message email
+                    this.setState({errorMessage : 'Email format wrong'})
+                }
             }
+            // jika value or pass tidak ada pasing error message
         }else{
-            if(emailValidator(value) === true){
-                alert('berhasil')
-                this.sendDataToApi({email : value, phone : "", password : pass})
-                // kirim ke API
-            }else{
-                this.setState({errorMessage : 'Email format wrong'})
-            }
+            value ? this.setState({errorMessage : ''}) : this.setState({errorMessage : 'Email atau Phone tidak boleh kosong'})
+            pass ? this.setState({errorMessagePass : ''}) : this.setState({errorMessagePass : 'Password tidak boleh kosong'})
         }
     }
 
     sendDataToApi = (data) =>{
+
         var dataType = data.phone ? 'phone' : 'email'
         var dataValue = data.phone ? data.phone : data.email
 
-        Axios.get(apiUrl + 'user?' + dataType + '=' + dataValue)
+        Axios.get(apiUrl + 'user?' + dataType + '=' + dataValue )
         .then((res) =>{
+            // jika inputan user ada di database
             if(res.data.length !== 0){
+                // jika password di res.data sama password di inputan user sama ubah id di localstorage
                 if(data.password === res.data[0].password){
                     localStorage.setItem('id', res.data[0].id)
                     window.location = '/'
                 }else{
-                    alert('Password salah')
+                // jika tidak sama munculin pesan errornya
+                    this.setState({errorMessagePass : 'Password salah'})
                 }
+            // jika tidak ada
             }else{
                 alert('Akun anda belum terdaftar')
             }
@@ -66,8 +84,8 @@ class ModalLogin extends Component {
 
     render() {
         return (
-            <div>
-                <span className='sporteens-clickable-el' onClick={() => this.handleModal()} style={{marginLeft : this.props.margin, fontWeight : this.props.tebal}}>{this.props.title}</span>
+            <span>
+                <span className={this.props.className} onClick={() => this.handleModal()} >{this.props.isi}</span>
                 <Modal show={this.state.showLogin} onHide={() => this.handleModal()}>
                     <Modal.Header closeButton>
                         <Modal.Title>Login</Modal.Title>
@@ -78,10 +96,13 @@ class ModalLogin extends Component {
                             <div className="form-group px-4">
                                 <label>Username : </label>
                                 <input type="text" placeholder='Enter your email or phone' className='form-control' ref='userName'/>
+                                <span className='sporteens-font-14 text-danger'>{this.state.errorMessage}</span>
+                                
                             </div>
                             <div className="form-group px-4">
                                 <label>Password : </label>
                                 <input type="password" placeholder='Enter your password' className='form-control' ref='pass'/>
+                                <span className='sporteens-font-14 text-danger'>{this.state.errorMessagePass}</span>
                             </div>
                             <div className="form-group px-4">
                                 <input type="button" value="Submit" className='btn tombol-dark' onClick={this.onSubmitBtnClick}/>
@@ -91,7 +112,7 @@ class ModalLogin extends Component {
                         </div>
                     </Modal.Body>
                 </Modal>
-            </div>
+            </span>
         );
     }
 }

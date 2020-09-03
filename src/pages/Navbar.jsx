@@ -69,7 +69,7 @@ export class Navbar extends Component{
                                 :
                                 <div className="d-flex">
                                     <FontAwesomeIcon icon={faUser}/>
-                                    <ModalLogin title='Login' margin='10px'/>
+                                    <ModalLogin isi='Login' className='ml-2 sporteens-clickable-el'/>
                                     <span className='mx-1'> / </span> 
                                     <Link to='/register' className='sporteens-clickable-el sporteens-link'>Register</Link>
                                 </div>
@@ -85,7 +85,7 @@ export class Navbar extends Component{
                     <div className="row justify-content-between px-5 px-md-0">
                         {/* Header Logo */}
                         <div className="sporteens-main-dark sporteens-logo-header sporteens-clickable-el">
-                            LOGO
+                            <Link to='/' className='my-link'>LOGO</Link> 
                         </div>
 
                         {/* Header Items */}
@@ -137,7 +137,7 @@ export class Navbar extends Component{
                                 </div>
                                 :
                                 <div className="mt-3 border-bottom sporteens-clickable-el d-flex">
-                                    <Link className='my-link mr-1' to='/register'>Register</Link> / <ModalLogin title='Login' margin='5px'/>
+                                    <Link className='my-link mr-1' to='/register'>Register</Link> / <ModalLogin isi='Login' className='ml-2'/>
                                 </div>
                             }
                         </div>
