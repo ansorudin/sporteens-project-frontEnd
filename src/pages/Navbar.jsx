@@ -52,9 +52,9 @@ export class Navbar extends Component{
     render(){
         return (
             <div>
-            <div className="sporteens-bg-main-dark py-3 sporteens-light">
+            <div className="sporteens-bg-black py-3 sporteens-light">
                 <div className="container">
-                    <div className="row justify-content-end">
+                    <div className="row justify-content-end ">
                         <div className='mr-3 sporteens-navbar-top d-none d-md-block'>
                             {
                                 this.state.isLogin ? 

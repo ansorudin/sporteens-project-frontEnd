@@ -1,9 +1,14 @@
+p{
+    padding: 0px;
+    margin: 0px;
+}
+
 :root {
-    --main: #f38181;
-    --secondary : #b9e1dc;
+    --main: #bc5148;
+    --secondary : #f6f6e9;
     --black : #222831;
-    --light : #fbfbfb;
-    --main-dark : #4797b1;
+    --light : #efefef;
+    --main-dark : #194769;
 }
 
 
@@ -111,4 +116,12 @@
 .my-link:hover{
     color: inherit;
     text-decoration: none;
+}
+
+/* hover */
+
+
+
+.sporteens-onhover:hover{
+    font-weight: bold;
 }
