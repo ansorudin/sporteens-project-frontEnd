@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Axios from 'axios'
 import apiUrl from '../support/constant/apiUrl';
 import ModalLogin from '../component/ModalLogin';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -70,6 +72,9 @@ class DetailProduct extends Component {
             }
             
         })
+        .catch((err) => {
+            console.log(err)
+        })
 
 
 
@@ -84,8 +89,8 @@ class DetailProduct extends Component {
         if(this.state.data !== null){
             return (  
                 <div>
-                    <div className="container sporteens-container-detail-product mb-5 ">
-                        <div className="row  h-75 mt-5">
+                    <div className="container sporteens-container-detail-product mb-5">
+                        <div className="row h-75 mt-5">
                             <div className="col-6 sporteens-detail-product-image ">
                                 <div className="container h-100">
                                     <div className="row h-100 ">
@@ -148,11 +153,11 @@ class DetailProduct extends Component {
                                         <div className="col-12 deskripsi-stock  d-flex flex-column justify-content-center border-bottom">
                                             <div>
                                                 <h5>Stock</h5>
-                                                <h5>{this.state.data.Stock} pcs</h5>
+                                                <h5 className='font-weight-light'>{this.state.data.Stock} pcs</h5>
                                             </div>
                                             <div>
                                                 <h5>Berat</h5>
-                                                <h5>350 gr</h5>
+                                                <h5 className='font-weight-light'>350 gr</h5>
                                             </div>
                                         </div>
                                         <div className="col-12 deskripsi-text  d-flex flex-column justify-content-center">
@@ -160,7 +165,7 @@ class DetailProduct extends Component {
                                                 <h5>Deskripsi</h5>
                                                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab unde placeat dignissimos ratione quod laboriosam officiis facilis tempora ipsa sed. Minima dolor nostrum beatae est sapiente accusantium in distinctio? Sunt.</p>
                                             </div>
-                                            <div className='row'>
+                                            <div className='row mt-4'>
                                                 <div className="col-8">
                                                     {
                                                         this.state.isLogin ?
@@ -173,9 +178,10 @@ class DetailProduct extends Component {
                                                 <div className="col-3">
                                                     {
                                                         this.state.isLogin ?
-                                                        <input type="button" value="Add to Wishlist" className='btn tombol-dark' />
+                                                        
+                                                        <input type="button" value={<FontAwesomeIcon icon={faHeart}/>} className='btn tombol-dark' />
                                                        :
-                                                       <ModalLogin isi='Add to Wishlist' className='btn tombol-dark' />
+                                                       <ModalLogin isi={<FontAwesomeIcon icon={faHeart} />} className='btn tombol-dark' />
                                                     }
                                                 </div>
                                             </div>

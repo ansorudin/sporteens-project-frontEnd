@@ -61,18 +61,18 @@ export class Navbar extends Component{
                             {
                                 this.state.isLogin ? 
                                     <div className='sporteens-navbar-top d-none d-md-block'>
-                                        <Link to='/carts' className='ml-2 sporteens-clickable-el sporteens-link sporteens-link sporteens-font-16'> <FontAwesomeIcon icon={faShoppingCart} /></Link>
-                                        <span className='mx-2 sporteens-link sporteens-font-16'> / </span> 
-                                        <Link onClick={this.onLogout} to='/user-detail' className='sporteens-clickable-el sporteens-link sporteens-font-16'>
+                                        <Link to='/carts' className='ml-2 sporteens-clickable-el my-link my-link sporteens-font-16'> <FontAwesomeIcon icon={faShoppingCart} /></Link>
+                                        <span className='mx-2 my-link sporteens-font-16'> / </span> 
+                                        <Link onClick={this.onLogout} to='/user-detail' className='sporteens-clickable-el my-link sporteens-font-16'>
                                             {this.state.data ? <FontAwesomeIcon icon={faUserCircle}/> : null}
                                         </Link>
                                     </div>
                                 :
                                 <div className="d-flex">
                                     
-                            <ModalLogin isi='Login' className=' sporteens-clickable-el'/>
+                                    <ModalLogin isi='Login' className=' sporteens-clickable-el'/>
                                     <span className='mx-1'> / </span> 
-                                    <Link to='/register' className='sporteens-clickable-el sporteens-link'>Register</Link>
+                                    <Link to='/register' className='sporteens-clickable-el my-link'>Register</Link>
                                 </div>
                             }
                         </div>
@@ -92,16 +92,16 @@ export class Navbar extends Component{
                         {/* Header Items */}
                         <div className="sporteens-main-dark sporteens-items-header d-none d-md-block">
                             <span className='mr-md-3 sporteens-clickable-el'>
-                                <Link to='/' className='sporteens-link'>Home</Link>  
+                                <Link to='/' className='my-link'>Home</Link>  
                             </span>
                             <span className='mr-md-3 sporteens-clickable-el' >
-                                <Link to='/products' className='sporteens-link'>Products</Link>
+                                <Link to='/products' className='my-link'>Products</Link>
                             </span>
                             <span className='mr-md-3 sporteens-clickable-el'>
-                            <Link to='/brands' className='sporteens-link'>Brands</Link>
+                            <Link to='/brands' className='my-link'>Brands</Link>
                             </span>
                             <span className='mr-md-3 sporteens-clickable-el'>
-                            <Link to='/sale' className='sporteens-link'>Sale</Link>
+                            <Link to='/sale' className='my-link'>Sale</Link>
                             </span>
                         </div>
 

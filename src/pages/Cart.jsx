@@ -9,10 +9,13 @@ class Cart extends Component {
     state={
         dataCart : null,
         dataProduct : null,
-        statePlus : 0
+        summarOrder : 0,
+        potongan : 0
     }
     componentDidMount(){
         this.getDataCart()
+        this.mapDataOrderSummary()
+        
     }
 
     getDataCart = () =>{
@@ -43,8 +46,17 @@ class Cart extends Component {
                 // get Data product berdasakan id yg dipilih idUser (10,3,6)
                 Axios.get(apiUrl + url)
                 .then((res) => {
-                    // console.log(res.data)
-                this.setState({dataProduct : res.data})
+                var summaryOrder = 0
+                var potongan = 0
+
+                res.data.forEach((val,i) =>{
+                    summaryOrder += val.price * this.state.dataCart[i].qty
+                    potongan += (val.price * (val.discount/100)) * this.state.dataCart[i].qty
+                })
+                // console.log(potongan)
+                // console.log(res.data)
+                this.setState({dataProduct : res.data, summarOrder : summaryOrder, potongan : potongan})
+
                 })
                 .catch((err) => {
                     console.log(err)
@@ -96,25 +108,51 @@ class Cart extends Component {
         Axios.get(apiUrl + 'carts/' + up)
         .then((res) => {
             var qtyBaru = res.data.qty - 1
-
-            Axios.patch(apiUrl + 'carts/' + up, {qty : qtyBaru})
-            .then((res) => {
-                console.log(res.data.qty)
-                this.getDataCart()
-            })
-            .catch((err) => {
-                console.log(err.message)
-            })
+            if(res.data.qty === 0){
+                Axios.delete(apiUrl + 'carts/' + up)
+                .then((res) => {
+                    console.log(res)
+                    this.getDataCart()
+                    
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+            }else{
+                Axios.patch(apiUrl + 'carts/' + up, {qty : qtyBaru})
+                .then((res) => {
+                    console.log(res.data.qty)
+                    this.getDataCart()
+                })
+                .catch((err) => {
+                    console.log(err.message)
+                })
+            }
         })
         
+    }
+
+    mapDataOrderSummary = () =>{
+        var arr = []
+        var arr2 = 0
+        if(this.state.dataProduct !== null && this.state.dataCart !== null){
+            this.state.dataProduct.map((val,index)=>{
+                arr.push(val.price * this.state.dataCart[index].qty)
+            })
+            arr.forEach(val => arr2 += val)
+            
+        }
+        console.log(arr2)
+        this.setState({summarOrder : arr2})
+
     }
 
     mapDataCart = () => {
         return this.state.dataCart.map((val, index) =>{
             return (
                 <div className="row mb-4" key={index}>
-                    <div className="col-8">
-                        <div className="  d-flex">
+                    <div className="col-7">
+                        <div className=" d-flex">
                             <div className=' w-25 '>
                                 <img src={this.state.dataProduct[index].image1} className='image-in-carts img-thumbnail' alt='gambar gagal'/>
                             </div>
@@ -134,13 +172,22 @@ class Cart extends Component {
                         </div>
                         <span><p onClick={this.onRemoveCartBtn} className='p-0 m-0 sporteens-font-12 mt-3 sporteens-clickable-el' id={val.id}>Remove</p></span>
                     </div>
-                    <div className="col-2 d-flex flex-column justify-content-center align-items-center">
+                    <div className="col-3 d-flex flex-column justify-content-center align-items-center">
                         <p className='sporteens-font-12 p-0 m-0'>Rp. {(this.state.dataProduct[index].price * val.qty).toLocaleString('id-ID')}</p>
                     </div>
                 </div>
             )
         })
     }
+
+    // mapDataCart = () => {
+    //     var summaryOrder = 0
+    //     this.state.dataCart.forEach((val, index) =>{
+    //         summaryOrder += val.price
+    //         console.log(summaryOrder)
+    //     })
+    // }
+
     render() {
         return (
             <div>
@@ -150,13 +197,13 @@ class Cart extends Component {
                         <div className="col-8 mt-5">
                             {/* Judul */}
                             <div className="row mb-4 border-bottom font-weight-bold sporteens-font-14 py-2">
-                                <div className="col-8 ">
+                                <div className="col-7 ">
                                     <p className='text-center p-0 m-0'>Item Description</p>
                                 </div>
                                 <div className="col-2">
                                     <p className='text-center p-0 m-0'>Quantity</p>
                                 </div>
-                                <div className="col-2">
+                                <div className="col-3">
                                     <p className='text-center p-0 m-0'>Total</p>
                                 </div>
                             </div>
@@ -180,16 +227,16 @@ class Cart extends Component {
                                 <p className='p-0 m-0 py-2 sporteens-font-14 font-weight-bold'>Order Summary</p>
                             </div>
                             <div className=" mt-3 mb-2 row sporteens-font-14">
-                                <span className=' col-8'>Order Sub Total :</span>
-                                <span className='col-4'>Rp. 2.500.000</span>
+                                <span className=' col-6'>Order Sub Total :</span>
+                                <span className='col-6 text-right'>Rp. {(this.state.summarOrder).toLocaleString('id-ID')}</span>
                             </div>
                             <div className=" mb-3 row sporteens-font-14">
-                                <span className=' col-8'>Promotion :</span>
-                                <span className='col-4'>Rp. 500.000 -</span>
+                                <span className=' col-6'>Promotion :</span>
+                                <span className='col-6 text-right'>(Rp. {(this.state.potongan.toLocaleString('id-ID'))})</span>
                             </div>
                             <div className="border-top py-3 d-flex justify-content-between">
                                 <span className=' font-weight-bold'>Order Total :</span>
-                                <span>Rp. 2000.000</span>
+                                <span>Rp. {(this.state.summarOrder - this.state.potongan).toLocaleString('id-ID')} </span>
                             </div>
                             <input type="button" value="Checkout" className='btn tombol-dark mt-4 mb-5'/>
                         </div>

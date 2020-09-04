@@ -177,12 +177,5 @@
       "image3": "https://culture-kings-us.imgix.net/products/4454569386949_normal_00060.jpg?v=1597974574&auto=compress,format"
     }
   ],
-  "carts": [
-    {
-      "id_user": "2",
-      "id_product": "3",
-      "qty": 0,
-      "id": 1
-    }
-  ]
+  "carts": []
 }
