@@ -4,15 +4,19 @@ import { Link } from 'react-router-dom';
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 
 const linkApiProduct = 'http://localhost:2000/product'
 
 class ListProduct extends Component {
     state ={
         data : null,
+        filteredData : null,
         dropdownOpen : false,
         isi : 'Default',
-        sortBy : ''
+        sortBy : '',
+        allBrands : null,
+        allCategories : null
         
     }
 
@@ -25,7 +29,18 @@ class ListProduct extends Component {
         Axios.get(linkApiProduct)
         .then((res) => {
             // console.log(res.data[0].name)
-            this.setState({data : res.data})
+            console.log(res.data)
+            var allBrand = []
+            var allCategories = []
+            res.data.forEach((val) =>{
+                if(!allBrand.includes(val.brand)){
+                    allBrand.push(val.brand)
+                }
+                if(!allCategories.includes(val.category)){
+                    allCategories.push(val.category)
+                }
+            })
+            this.setState({data : res.data, filteredData : res.data, allBrands : allBrand, allCategories : allCategories})
         })
         .catch((err) => {
             console.log(err)
@@ -36,7 +51,7 @@ class ListProduct extends Component {
     
 
     mapDataProduct = () => {
-        return this.state.data.map((val) => {
+        return this.state.filteredData.map((val) => {
             return(
                     <div className="col-6 col-md-3 mt-4 mb-3 sporteens-clickable-el" key={val.id}>
                         <div className="h-100">
@@ -104,15 +119,81 @@ class ListProduct extends Component {
                 return a.id - b.id
             })
         }
-        this.setState({data : dataSort})
+        this.setState({filteredData : dataSort})
         this.setState({dropdownOpen : !this.state.dropdownOpen})
         this.setState({isi : e.target.value})
+    }
+
+    modalFilterSwitch = () =>{
+        this.setState({modalFilterOpen : !this.state.modalFilterOpen})
+    }
+
+    onApplyFilterClick = () =>{
+        var categorySelected = this.refs.category.value
+        var brandSelected = this.refs.brand.value
+        var dataFilter = this.state.data
+
+        // Jika value category !== all atau value brand !== all maka di filter
+        if(!(categorySelected === 'All') || !(brandSelected === 'All')){
+            dataFilter = this.state.data.filter((val) => {
+                if(categorySelected === 'All'){
+                    return val.brand === brandSelected
+                }
+                if(brandSelected === 'All'){
+                    return val.category === categorySelected
+                }
+                return val.category === categorySelected && val.brand === brandSelected
+            })
+        }
+        this.setState({filteredData : dataFilter, modalFilterOpen : false})
     }
 
     render() {
         if(this.state.data !== null){
             return (
                 <div className=''>
+                    {/* Modal Filter */}
+                    <Modal centered={true} toggle={this.modalFilterSwitch} isOpen={this.state.modalFilterOpen}>
+                        <ModalHeader toggle={this.modalFilterSwitch}>
+                            Filter By
+                        </ModalHeader>
+                        <ModalBody>
+                            <p className='p-0 m-0 sporteens-font-14 font-weight-bold'>Category</p>
+                            <select className='form-control mt-2' ref='category'>
+                                <option value="All">All Category</option>
+                            {
+                                this.state.allCategories ? 
+                                this.state.allCategories.map((val) => {
+                                    return (
+                                    <option value={val}>{val}</option>
+                                    )
+                                })
+                                :
+                                null
+                            }
+                            </select>
+
+                            <p className='p-0 m-0 mt-4 sporteens-font-14 font-weight-bold'>Brand</p>
+                            <select className='form-control mt-2' ref='brand'>
+                                <option value="All">All Brand</option>
+                                {
+                                this.state.allBrands ? 
+                                this.state.allBrands.map((val) => {
+                                    return (
+                                    <option value={val}>{val}</option>
+                                    )
+                                })
+                                :
+                                null
+                            }
+                            </select>
+                        </ModalBody>
+                        <ModalFooter>
+                            <input onClick={this.onApplyFilterClick} type="button" value="Apply" className='btn btn-info'/>
+                        </ModalFooter>
+                    </Modal>
+
+
                     {/* Jumbotron Section */}
                     <div className='sporteens-jumbotron-listProduct container mt-5 mb-5'>
                         <div className="d-flex flex-column justify-content-center h-100 px-5">
@@ -155,6 +236,12 @@ class ListProduct extends Component {
                             </div>
                         </div>
 
+                        <div className="d-flex align-items-center sporteens-font-14 sporteens-clickable-el" onClick={this.modalFilterSwitch}>
+                                <span>Filter By : <FontAwesomeIcon icon={faChevronDown}/> </span>
+                        </div>
+
+
+                        
                         <div className="row">
                         {this.mapDataProduct()}
                         </div>

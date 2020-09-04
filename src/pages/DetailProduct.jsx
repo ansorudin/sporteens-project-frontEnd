@@ -17,6 +17,10 @@ class DetailProduct extends Component {
 
     getDataDetailProduct = () => {
         var id = this.props.match.params.bebas
+        var userId = localStorage.getItem('id')
+
+        if(userId) this.setState({isLogin : true})
+
         Axios.get(apiUrl + 'product/' + id)
         .then((res) => {
             this.setState({data : res.data, selectPhoto : res.data.image1})
@@ -27,28 +31,53 @@ class DetailProduct extends Component {
         })
     }
 
+   
   
 
     handleModal = () => {
         this.setState({showLogin: !this.state.showLogin})
     }
 
-    onAddWishlistBtn = () => {
-        var id = localStorage.getItem('id')
-        if(id){
-            // udah login
-        }else{
-            this.setState({showLogin : true})
-        }
-    }
+   
+    
+   
     onAddToCartBtn = () => {
-        var id = localStorage.getItem('id')
-        if(id){
- 
-        }else{
-            this.setState({showLogin : true})
-        }
+        var userId = localStorage.getItem('id')
+        var id = this.props.match.params.bebas
+
+        // console.log(id)
+        Axios.get(apiUrl + 'carts?id_user=' + userId + '&id_product=' + id)
+        .then((res) => {
+            console.log(res.data)
+            if(res.data.length === 0){
+                Axios.post(apiUrl + 'carts/', {id_user : userId, id_product : id, qty : 1})
+                .then((res) =>{
+                    // console.log(res.data)
+                })
+                .catch((err) => {
+                    // console.log(err.message)
+                })
+            }else{
+                var qtyBaru = res.data[0].qty
+                
+                Axios.patch(apiUrl + 'carts/' + res.data[0].id, {qty : qtyBaru + 1})
+                .then((res) =>{
+                    // console.log(res.data)
+                })
+                .catch((err) => {
+                    console.log(err.message)
+                })
+            }
+            
+        })
+
+
+
+        
+        
      }
+
+
    
 
     render() {
@@ -135,7 +164,7 @@ class DetailProduct extends Component {
                                                 <div className="col-8">
                                                     {
                                                         this.state.isLogin ?
-                                                        <input type="button" value="Add to Chart" className='btn tombol-dark btn-block' />
+                                                        <input  onClick={this.onAddToCartBtn} type="button" value="Add to Chart" className='btn tombol-dark btn-block' />
                                                        :
                                                        <ModalLogin isi='Add to Chart' className='btn tombol-dark btn-block'/>
                                                     }

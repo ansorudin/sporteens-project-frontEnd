@@ -14,6 +14,7 @@ import Cart from './pages/Cart.jsx'
 import Registrasi from './pages/Registrasi.jsx'
 import DetailProduct from './pages/DetailProduct.jsx'
 import CreatePassword from './pages/CreatePassword.jsx'
+import CheckOut from './pages/CheckOut.jsx'
 
 
 
@@ -31,6 +32,7 @@ class App extends React.Component{
             <Route path='/register' component={Registrasi} />
             <Route path='/detail-product/:bebas' component={DetailProduct} />
             <Route path='/create-password' component={CreatePassword} />
+            <Route path='/checkout' component={CheckOut} />
           </Switch>
         </div>
       </BrowserRouter>

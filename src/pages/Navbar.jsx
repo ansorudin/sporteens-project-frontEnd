@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faTimes, faUser, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faTimes,  faShoppingCart, faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import ModalLogin from '../component/ModalLogin';
 import {Link} from 'react-router-dom'
 import Axios from "axios";
@@ -52,6 +52,8 @@ export class Navbar extends Component{
     render(){
         return (
             <div>
+
+            {/* Secondary Navbar */}
             <div className="sporteens-bg-black py-3 sporteens-light">
                 <div className="container">
                     <div className="row justify-content-end ">
@@ -59,27 +61,26 @@ export class Navbar extends Component{
                             {
                                 this.state.isLogin ? 
                                     <div className='sporteens-navbar-top d-none d-md-block'>
-                                        <FontAwesomeIcon icon={faShoppingCart} />
-                                        <Link to='/carts' className='ml-2 sporteens-clickable-el sporteens-link'>Cart</Link>
-                                        <span className='mx-1'> / </span> 
-                                        <Link onClick={this.onLogout} to='/user-detail' className='sporteens-clickable-el sporteens-link'>
-                                            {this.state.data ? this.state.data.slice(0,4) + '...' : null}
+                                        <Link to='/carts' className='ml-2 sporteens-clickable-el sporteens-link sporteens-link sporteens-font-16'> <FontAwesomeIcon icon={faShoppingCart} /></Link>
+                                        <span className='mx-2 sporteens-link sporteens-font-16'> / </span> 
+                                        <Link onClick={this.onLogout} to='/user-detail' className='sporteens-clickable-el sporteens-link sporteens-font-16'>
+                                            {this.state.data ? <FontAwesomeIcon icon={faUserCircle}/> : null}
                                         </Link>
                                     </div>
                                 :
                                 <div className="d-flex">
-                                    <FontAwesomeIcon icon={faUser}/>
-                                    <ModalLogin isi='Login' className='ml-2 sporteens-clickable-el'/>
+                                    
+                            <ModalLogin isi='Login' className=' sporteens-clickable-el'/>
                                     <span className='mx-1'> / </span> 
                                     <Link to='/register' className='sporteens-clickable-el sporteens-link'>Register</Link>
                                 </div>
-
-
                             }
                         </div>
                     </div>
                 </div>
             </div>
+
+            {/* Main Navbar */}
             <div className="sporteens-bg-light py-4 navbar-sporteens">
                 <div className="container">
                     <div className="row justify-content-between px-5 px-md-0">
