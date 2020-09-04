@@ -69,7 +69,7 @@ class Registrasi extends Component {
     }
     render() {
         return (
-            <div className='border container-fluid p-0'>
+            <div className='container-fluid p-0'>
                 {/* banner side */}
                 <div className="row w-100">
                     <div className="col-8 d-none d-md-block">
@@ -78,37 +78,39 @@ class Registrasi extends Component {
 
                     {/* form */}
                     <div className="col-12 col-md-4">
-                        <div className="sporteens-register">
-                            <div className="d-flex flex-column h-100 align-items-center justify-content-center">
-                                {
-                                this.state.errorMessage ? 
-                                    <div className='alert alert-danger'>{this.state.errorMessage}</div>
-                                    :null
-                                }
-                                <div><h3>Daftar Disini</h3></div>
+                        <div className="sporteens-register d-flex align-items-center">
+                            <div className="d-flex flex-column h-75 align-items-center justify-content-center">
+                                
+                                <div><h5>Create Account</h5></div>
                                 <div className='w-100 mt-4'>
                                     <form className='row justify-content-center'>
                                         <div className='col-8 form-group'>
-                                            <input type="text" ref='emailOrPhone' placeholder="Silahkan Masukan Email / Phone Number" className='form-control'/>
+                                            <input type="text" ref='emailOrPhone' placeholder="Enter your email or phone" className=' form-control'/>
                                         </div>
                                         <div className='col-8 form-group'>
-                                            <input onClick={this.onSubmitBtnClick} type='button' className="btn tombol-dark btn-block" value='Submit'></input>
+                                            <input type="text" ref='l' placeholder="Enter your password" className=' form-control'/>
+                                        </div>
+                                        <div className='col-8 form-group'>
+                                            <input type="text" ref='l' placeholder="Confrim your password" className=' form-control'/>
+                                        </div>
+                                        <span className='sporteens-font-12 text-danger col-8 text-center'>{this.state.errorMessage}</span>
+                                        <div className='col-8 form-group mt-3'>
+                                            <input onClick={this.onSubmitBtnClick} type='button' className="btn btn-warning btn-block p-0 py-1 px-3 sporteens-font-14" value='Submit'></input>
                                         </div>
                                     </form>
-                                </div>
-                                <div className='mt-4 '>
-                                    <h3>ATAU
-                                    </h3>
+                                    <div className="row justify-content-center">
+                                        <div className=''>
+                                                <span className='sporteens-font-14'>Have account ? </span>
+                                                <ModalLogin isi='sign in' className='sporteens-onhover sporteens-clickable-el sporteens-font-14'/> 
+                                        </div>
                                     </div>
-                                <div className='w-100 mt-4'>
+                                </div>
+                                <div className='mt-3 '>
+                                    <h5>or</h5>
+                                </div>
+                                <div className='w-100 mt-3'>
                                     <div className='row justify-content-center'>
-                                        <div className="col-8 text-center">
-                                            <input type="button" value= "Daftar dengan Googel" className="btn tombol-dark px-5"/>
-                                        </div>
-                                        <div className='col-8 d-flex justify-content-center mt-5'>
-                                            <span className=''>Sudah punya akun ? </span>
-                                            <ModalLogin isi='Masuk' className='ml-2 font-weight-bold sporteens-clickable-el'/> 
-                                        </div>
+                                        <span className='sporteens-font-14'>Login with <span className='sporteens-onhover sporteens-clickable-el sporteens-font-14'>Google Account</span></span>
                                     </div>
                                 </div>
                             </div>

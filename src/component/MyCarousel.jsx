@@ -3,6 +3,10 @@ import {Carousel} from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 
 class MyCarousel extends Component {
+
+    state ={
+        int : 1000
+    }
     render() {
         return (
             <div className='sporteens-shadow'>
