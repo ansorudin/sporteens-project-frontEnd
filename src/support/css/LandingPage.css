@@ -55,3 +55,19 @@
     margin: 5px 5px 0 5px;
     height: 200px;
 }
+
+
+
+
+
+
+
+/* Phone */
+@media (max-width: 767.98px) { 
+    .sporteens-jumbotron{
+        height: 300px;
+    }
+    .text-jumbotron{
+        font-size: 24px;
+    }
+ }

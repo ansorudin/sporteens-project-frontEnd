@@ -177,5 +177,36 @@
       "image3": "https://culture-kings-us.imgix.net/products/4454569386949_normal_00060.jpg?v=1597974574&auto=compress,format"
     }
   ],
-  "carts": []
+  "carts": [
+    {
+      "id_user": "2",
+      "id_product": "3",
+      "qty": 3,
+      "id": 1
+    },
+    {
+      "id_user": "2",
+      "id_product": "8",
+      "qty": 1,
+      "id": 2
+    },
+    {
+      "id_user": "2",
+      "id_product": "2",
+      "qty": 1,
+      "id": 3
+    },
+    {
+      "id_user": "2",
+      "id_product": "1",
+      "qty": 2,
+      "id": 4
+    },
+    {
+      "id_user": "2",
+      "id_product": "6",
+      "qty": 1,
+      "id": 5
+    }
+  ]
 }

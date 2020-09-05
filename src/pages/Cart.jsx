@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import Axios from 'axios';
 import apiUrl from "./../support/constant/apiUrl";
+import { Link } from 'react-router-dom';
+
 
 
 class Cart extends Component {
@@ -111,7 +113,7 @@ class Cart extends Component {
             if(res.data.qty === 0){
                 Axios.delete(apiUrl + 'carts/' + up)
                 .then((res) => {
-                    console.log(res)
+                    // console.log(res)
                     this.getDataCart()
                     
                 })
@@ -121,7 +123,7 @@ class Cart extends Component {
             }else{
                 Axios.patch(apiUrl + 'carts/' + up, {qty : qtyBaru})
                 .then((res) => {
-                    console.log(res.data.qty)
+                    // console.log(res.data.qty)
                     this.getDataCart()
                 })
                 .catch((err) => {
@@ -140,11 +142,9 @@ class Cart extends Component {
                 arr.push(val.price * this.state.dataCart[index].qty)
             })
             arr.forEach(val => arr2 += val)
-            
+            this.setState({summarOrder : arr2})
         }
-        console.log(arr2)
-        this.setState({summarOrder : arr2})
-
+        // console.log(arr2)
     }
 
     mapDataCart = () => {
@@ -160,7 +160,6 @@ class Cart extends Component {
                                 <span className='text-secondary mb-2 sporteens-font-14'>{this.state.dataProduct[index].brand}</span>
                                 <h5>{this.state.dataProduct[index].name}</h5>
                                 <p>Rp. {(this.state.dataProduct[index].price).toLocaleString('id-ID')}</p>
-                                
                             </div>
                         </div>
                     </div>
@@ -211,7 +210,10 @@ class Cart extends Component {
                             {/* Isi Cart */}
                            {
                                this.state.dataProduct === null || this.state.dataCart === null ? 
-                               'Loading ...'
+                               <div className='text-center mt-5'>
+                                  <h5>Keranjang kamu masih kosong</h5>
+                                  <p>Klik <Link to='/products' className='my-link sporteens-onhover'><span>disini</span></Link> untuk mulai belanja</p> 
+                                </div>
                                :
                                this.mapDataCart()
                            }
@@ -239,6 +241,10 @@ class Cart extends Component {
                                 <span>Rp. {(this.state.summarOrder - this.state.potongan).toLocaleString('id-ID')} </span>
                             </div>
                             <input type="button" value="Checkout" className='btn tombol-dark mt-4 mb-5'/>
+
+                        </div>
+                        <div>
+                            
                         </div>
                     </div>
                 </div>

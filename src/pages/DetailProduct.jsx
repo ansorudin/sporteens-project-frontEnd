@@ -5,13 +5,16 @@ import ModalLogin from '../component/ModalLogin';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
+import ModalCheckout from '../component/ModalCheckout';
+
 
 
 class DetailProduct extends Component {
     state = {
         data : null,
         selectPhoto : null,
-        isLogin : false
+        isLogin : false,
+        
     }
     componentDidMount(){
         this.getDataDetailProduct()
@@ -54,7 +57,7 @@ class DetailProduct extends Component {
             if(res.data.length === 0){
                 Axios.post(apiUrl + 'carts/', {id_user : userId, id_product : id, qty : 1})
                 .then((res) =>{
-                    // console.log(res.data)
+                    
                 })
                 .catch((err) => {
                     // console.log(err.message)
@@ -169,7 +172,9 @@ class DetailProduct extends Component {
                                                 <div className="col-8">
                                                     {
                                                         this.state.isLogin ?
-                                                        <input  onClick={this.onAddToCartBtn} type="button" value="Add to Chart" className='btn tombol-dark btn-block' />
+                                                        <div onClick={this.onAddToCartBtn} >
+                                                        <ModalCheckout className='btn tombol-dark btn-block' isi={'Add to Chart'} imageModal={this.state.data.image1} nameModal={this.state.data.name} priceModal={(this.state.data.price).toLocaleString('id-ID')}/>
+                                                        </div>
                                                        :
                                                        <ModalLogin isi='Add to Chart' className='btn tombol-dark btn-block'/>
                                                     }
@@ -188,6 +193,7 @@ class DetailProduct extends Component {
                                         </div>
                                     </div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

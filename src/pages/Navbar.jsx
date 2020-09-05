@@ -1,21 +1,26 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faTimes,  faShoppingCart, faUserCircle } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faTimes,  faShoppingCart} from '@fortawesome/free-solid-svg-icons'
 import ModalLogin from '../component/ModalLogin';
 import {Link} from 'react-router-dom'
 import Axios from "axios";
 import apiUrl from "../support/constant/apiUrl";
 
+
 export class Navbar extends Component{
     state ={
         openToggle : false,
         isLogin : false,
-        data : null
+        data : null,
+        ava : '',
+        badgeCart : null
     }
 
     componentDidMount(){
         this.getIdUser()
+        
     }
+    
 
     onLogout = () => {
         if(window.confirm('are you sure want to logout ??')){
@@ -36,9 +41,9 @@ export class Navbar extends Component{
             Axios.get(apiUrl + 'user/' + id)
             .then((res) => {
                 if(res.data.email){
-                    this.setState({data : res.data.email})
+                    this.setState({data : res.data.email, ava : res.data.email})
                 }else{
-                    this.setState({data : res.data.phone})
+                    this.setState({data : res.data.phone, ava : res.data.phone})
                 }
             })
             .catch((err) =>{
@@ -49,8 +54,31 @@ export class Navbar extends Component{
             this.setState({isLogin : false})
         }
     }
+
+    getBadgeCarts = () =>{
+        var id = localStorage.getItem('id')
+
+        Axios.get(apiUrl + 'carts?id_user=' + id)
+        .then((res) => {
+            console.log(res.data)
+            if(res.data.length !== 0){
+                this.setState({badgeCart : res.data.length})
+                console.log('ada')
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+
+
+
+
+
     render(){
+        // {this.getBadgeCarts()}
         return (
+            
             <div>
 
             {/* Secondary Navbar */}
@@ -60,12 +88,14 @@ export class Navbar extends Component{
                         <div className='mr-3 sporteens-navbar-top d-none d-md-block'>
                             {
                                 this.state.isLogin ? 
-                                    <div className='sporteens-navbar-top d-none d-md-block'>
-                                        <Link to='/carts' className='ml-2 sporteens-clickable-el my-link my-link sporteens-font-16'> <FontAwesomeIcon icon={faShoppingCart} /></Link>
-                                        <span className='mx-2 my-link sporteens-font-16'> / </span> 
+                                    <div className='sporteens-navbar-top d-none d-md-block '>
                                         <Link onClick={this.onLogout} to='/user-detail' className='sporteens-clickable-el my-link sporteens-font-16'>
-                                            {this.state.data ? <FontAwesomeIcon icon={faUserCircle}/> : null}
+                                            {this.state.data ? 
+                                            <img src={`https://avatars.dicebear.com/api/human/${this.state.ava}.svg`} alt="kkk" style={{width:'22px', marginTop:'-3px', padding:'1px'}} className='border rounded-circle'/>
+                                            : null}
                                         </Link>
+                                        <span className='mx-2 my-link sporteens-font-16'> / </span> 
+                                        <Link to='/carts' className='sporteens-clickable-el my-link my-link sporteens-font-16'> <FontAwesomeIcon icon={faShoppingCart} /> <span className="badge badge-light rounded-circle bg-danger text-light" style={{maxWidth:'100%', height:'auto',position:'absolute', marginLeft:'-2px', marginTop:'-3px', fontSize:'9px'}} >{this.state.badgeCart}</span></Link>
                                     </div>
                                 :
                                 <div className="d-flex">

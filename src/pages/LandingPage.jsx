@@ -22,7 +22,7 @@ class LandingPage extends Component {
     getAllProducts = () => {
         Axios.get(apiUrl + 'product')
         .then((res) => {
-            console.log(res.data)
+            // console.log(res.data)
             this.setState({data : res.data})
         })
         .catch((err) => {
@@ -34,7 +34,7 @@ class LandingPage extends Component {
         return this.state.data.map((val) => {
             if(val.discount){
                 return(
-                    <div className="col-md-2 sporteens-clickable-el h-100">
+                    <div className="col-md-2 sporteens-clickable-el h-100" key={val.id}>
                         <div>
                             <Link to={'/detail-product/' + val.id}>
                             {/* Image */}
