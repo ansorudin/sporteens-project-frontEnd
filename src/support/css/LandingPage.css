@@ -46,7 +46,7 @@
 
 .sporteens-thumbnail-img{
     max-width: 100%;
-    max-height: auto;
+    
     z-index: -1;
     
     
@@ -57,8 +57,15 @@
 }
 
 
-
-
+.my-landing-page-font  {
+    font-size: 20px;
+}
+.image-font-flash-sale-title{
+    font-size: 14px;
+}
+.image-font-flash-sale-isi{
+    font-size: 12px;
+}
 
 
 
@@ -70,4 +77,15 @@
     .text-jumbotron{
         font-size: 24px;
     }
+
+    .my-landing-page-font  {
+        font-size: 17px;
+    }
+    .image-font-flash-sale-title{
+        font-size: 12px;
+    }
+    .image-font-flash-sale-isi{
+        font-size: 10px;
+    }
+    
  }

@@ -4,42 +4,58 @@ import phoneNumberValidator from '../support/function/phoneNumberValidator'
 import emailValidator from '../support/function/emailValidator';
 import Axios from 'axios'
 import apiUrl from '../support/constant/apiUrl';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 
 
 class Registrasi extends Component {
 
     state = {
-        errorMessage : ''
+        errorMessage : '',
+        eyePass : true
     }
 
     onSubmitBtnClick = () => {
         // get value from input
         var value = this.refs.emailOrPhone.value
+        var pass = this.refs.pass.value
+        var confirmPass = this.refs.confirmPass.value
 
-        if(Number(value[0]) >= 0){
-            if(phoneNumberValidator(value) === true) {
-                alert('berhasil')
-                // kirim ke api
-                this.sendDataToApi({phone : value, email : ""})
+        if(value && pass && confirmPass){
+            if(Number(value[0]) >= 0){
+                if(phoneNumberValidator(value) === true) {
+                    if(pass === confirmPass){
+                        // kirim ke api
+                        this.sendDataToApi({phone : value, email : "", password : pass})
+                    }else{
+                        this.setState({errorMessage : 'Password tidak sama'})
+                    }
+                }else{
+                    this.setState({errorMessage : phoneNumberValidator(value)})
+                    // munculin error message
+                }
             }else{
-                this.setState({errorMessage : phoneNumberValidator(value)})
-                // munculin error message
+                if(emailValidator(value) === true){
+                    if(pass === confirmPass){
+                        this.sendDataToApi({email : value, phone : "", password : pass})
+                        // kirim ke API
+                    }else{
+                        this.setState({errorMessage : 'Password tidak sama'})
+                    }
+                }else{
+                    this.setState({errorMessage : 'Email format wrong'})
+                }
             }
         }else{
-            if(emailValidator(value) === true){
-                alert('berhasil')
-                this.sendDataToApi({email : value, phone : ""})
-                // kirim ke API
-            }else{
-                this.setState({errorMessage : 'Email format wrong'})
-            }
+            this.setState({errorMessage : 'Inputan tidak boleh kosong'})
         }
     }
 
     sendDataToApi = (data) => {
         var dataToSend = data
-        dataToSend.password = ''
+        dataToSend.role = 'user'
+        
 
         var dataType = data.phone ? 'phone' : 'email'
         var dataValue = data.phone ? data.phone : data.email
@@ -51,9 +67,10 @@ class Registrasi extends Component {
                 .then((res) =>{
                     console.log(res)
                     alert('register succes')
-                    window.location = '/create-password/' + res.data.id
+                    // window.location = '/create-password/' + res.data.id
                     // simpan data user (id) ke local storage (val, datanya)
                     localStorage.setItem('id', res.data.id)
+                    // localStorage.setItem('role', res.data.role)
                 })
                 .catch((err) =>{
                     this.setState({errorMessage : err.message })
@@ -87,11 +104,13 @@ class Registrasi extends Component {
                                         <div className='col-8 form-group'>
                                             <input type="text" ref='emailOrPhone' placeholder="Enter your email or phone" className=' form-control'/>
                                         </div>
-                                        <div className='col-8 form-group'>
-                                            <input type="text" ref='l' placeholder="Enter your password" className=' form-control'/>
+                                        <div className='col-8 form-group d-flex'>
+                                            <input type={this.state.eyePass ? 'password' : 'text'} ref='pass' placeholder="Enter your password" className=' form-control'/>
+                                            <span><FontAwesomeIcon className='ml-2 h-100' color='black' onClick= {() => this.setState({eyePass: !this.state.eyePass})} icon={faEye}/></span>
                                         </div>
-                                        <div className='col-8 form-group'>
-                                            <input type="text" ref='l' placeholder="Confrim your password" className=' form-control'/>
+                                        <div className='col-8 form-group d-flex'>
+                                            <input type={this.state.eyePass ? 'password' : 'text'} ref='confirmPass' placeholder="Confrim your password" className=' form-control'/>
+                                            <span><FontAwesomeIcon className='ml-2 h-100' color='black' onClick= {() => this.setState({eyePass: !this.state.eyePass})} icon={faEye}/></span>
                                         </div>
                                         <span className='sporteens-font-12 text-danger col-8 text-center'>{this.state.errorMessage}</span>
                                         <div className='col-8 form-group mt-3'>

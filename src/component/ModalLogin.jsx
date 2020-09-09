@@ -69,6 +69,7 @@ class ModalLogin extends Component {
                 // jika password di res.data sama password di inputan user sama ubah id di localstorage
                 if(data.password === res.data[0].password){
                     localStorage.setItem('id', res.data[0].id)
+                    // localStorage.setItem('role', res.data[0].role)
                     window.location = '/'
                 }else{
                 // jika tidak sama munculin pesan errornya
@@ -110,12 +111,14 @@ class ModalLogin extends Component {
                                     <input type="password" placeholder='Enter your password' className={this.state.isError ? 'form-control sporteens-font-12 border-danger' : 'form-control sporteens-font-12'} ref='pass'/>
                                     <span className='sporteens-font-12 text-danger mt-1'>{this.state.errorMessagePass}</span>
                                 </div>
+                                <Link className='my-link' to='edit-password'><p onClick={() => this.handleModal()} className='p-0 m-0 mt-2 mr-4 text-right sporteens-font-12'>Forgot password ?</p></Link>
                                 <div className="form-group px-4">
                                     <input type="button" value="Submit" className={this.state.isError ? 'btn btn-outline-danger sporteens-font-12' : 'btn tombol-dark sporteens-font-12'} onClick={this.onSubmitBtnClick}/>
                                 </div>
                             </form>
 
                             <p className='p-0 m-0 mt-4 text-center sporteens-font-12'>Not have account ? Register <Link to='/register' className='my-link' onClick={() => this.handleModal()}><span className='font-weight-bold sporteens-font-12'>here</span></Link></p>
+                            
                         </div>
                     </Modal.Body>
                 </Modal>

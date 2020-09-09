@@ -5,15 +5,17 @@ import ModalLogin from '../component/ModalLogin';
 import {Link} from 'react-router-dom'
 import Axios from "axios";
 import apiUrl from "../support/constant/apiUrl";
+import BadgeCart from "../component/BadgeCart";
 
 
 export class Navbar extends Component{
     state ={
-        openToggle : false,
+        openToggle : true,
         isLogin : false,
         data : null,
         ava : '',
-        badgeCart : null
+        badgeCart : null,
+        role : null
     }
 
     componentDidMount(){
@@ -25,6 +27,7 @@ export class Navbar extends Component{
     onLogout = () => {
         if(window.confirm('are you sure want to logout ??')){
             localStorage.removeItem('id')
+            localStorage.removeItem('role')
             window.location = '/'
         }else{
             window.location = '/'
@@ -36,55 +39,44 @@ export class Navbar extends Component{
     getIdUser = () => {
         // get value di local storage ('id' adalah valuenya)
         var id = localStorage.getItem('id')
+
         if(id){
             this.setState({isLogin : true})
             Axios.get(apiUrl + 'user/' + id)
             .then((res) => {
+                // jika hasil res adalah data email maka state data diganti data email
                 if(res.data.email){
-                    this.setState({data : res.data.email, ava : res.data.email})
+                    this.setState({data : res.data.email, ava : res.data.email, role : res.data.role})
                 }else{
-                    this.setState({data : res.data.phone, ava : res.data.phone})
+                    this.setState({data : res.data.phone, ava : res.data.phone, role : res.data.role})
                 }
+                
+
             })
             .catch((err) =>{
                 console.log(err)
                 alert(err.message)
             })
         }else{
-            this.setState({isLogin : false})
+            this.setState({isLogin : false, role : 'guest'})
         }
     }
 
-    getBadgeCarts = () =>{
-        var id = localStorage.getItem('id')
+    
 
-        Axios.get(apiUrl + 'carts?id_user=' + id)
-        .then((res) => {
-            console.log(res.data)
-            if(res.data.length !== 0){
-                this.setState({badgeCart : res.data.length})
-                console.log('ada')
-            }
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+    onOpenToggle = () =>{
+        this.setState({openToggle : !this.state.openToggle})
     }
-
-
 
 
 
     render(){
-        // {this.getBadgeCarts()}
         return (
-            
             <div>
-
             {/* Secondary Navbar */}
             <div className="sporteens-bg-black py-3 sporteens-light">
                 <div className="container">
-                    <div className="row justify-content-end ">
+                    <div className="row justify-content-end">
                         <div className='mr-3 sporteens-navbar-top d-none d-md-block'>
                             {
                                 this.state.isLogin ? 
@@ -95,7 +87,7 @@ export class Navbar extends Component{
                                             : null}
                                         </Link>
                                         <span className='mx-2 my-link sporteens-font-16'> / </span> 
-                                        <Link to='/carts' className='sporteens-clickable-el my-link my-link sporteens-font-16'> <FontAwesomeIcon icon={faShoppingCart} /> <span className="badge badge-light rounded-circle bg-danger text-light" style={{maxWidth:'100%', height:'auto',position:'absolute', marginLeft:'-2px', marginTop:'-3px', fontSize:'9px'}} >{this.state.badgeCart}</span></Link>
+                                        <Link to='/carts' className='sporteens-clickable-el my-link my-link sporteens-font-16'> <FontAwesomeIcon icon={faShoppingCart} /> <BadgeCart/> </Link>
                                     </div>
                                 :
                                 <div className="d-flex">
@@ -113,27 +105,46 @@ export class Navbar extends Component{
             {/* Main Navbar */}
             <div className="sporteens-bg-light py-4 navbar-sporteens">
                 <div className="container">
-                    <div className="row justify-content-between px-5 px-md-0">
+                    <div className="row justify-content-between px-4 px-md-0">
                         {/* Header Logo */}
                         <div className="sporteens-main-dark sporteens-logo-header sporteens-clickable-el">
                             <Link to='/' className='my-link'>LOGO</Link> 
                         </div>
 
                         {/* Header Items */}
-                        <div className="sporteens-main-dark sporteens-items-header d-none d-md-block">
-                            <span className='mr-md-3 sporteens-clickable-el'>
-                                <Link to='/' className='my-link'>Home</Link>  
-                            </span>
-                            <span className='mr-md-3 sporteens-clickable-el' >
-                                <Link to='/products' className='my-link'>Products</Link>
-                            </span>
-                            <span className='mr-md-3 sporteens-clickable-el'>
-                            <Link to='/brands' className='my-link'>Brands</Link>
-                            </span>
-                            <span className='mr-md-3 sporteens-clickable-el'>
-                            <Link to='/sale' className='my-link'>Sale</Link>
-                            </span>
-                        </div>
+                        {
+                            this.state.role === 'admin' ?
+                            <div className="sporteens-main-dark sporteens-items-header d-none d-md-block">
+                                <span className='mr-md-3 sporteens-clickable-el'>
+                                    <Link to='/' className='my-link'>Home</Link>  
+                                </span>
+                                <span className='mr-md-3 sporteens-clickable-el' >
+                                    <Link to='/products' className='my-link'>Products</Link>
+                                </span>
+                                <span className='mr-md-3 sporteens-clickable-el'>
+                                <Link to='/management-product' className='my-link'>Management</Link>
+                                </span>
+                                <span className='mr-md-3 sporteens-clickable-el'>
+                                <Link to='/admin' className='my-link'>Statistic</Link>
+                                </span>
+                            </div>
+                            :
+                            <div className="sporteens-main-dark sporteens-items-header d-none d-md-block">
+                                <span className='mr-md-3 sporteens-clickable-el'>
+                                    <Link to='/' className='my-link'>Home</Link>  
+                                </span>
+                                <span className='mr-md-3 sporteens-clickable-el' >
+                                    <Link to='/products' className='my-link'>Products</Link>
+                                </span>
+                                <span className='mr-md-3 sporteens-clickable-el'>
+                                <Link to='/brands' className='my-link'>Brands</Link>
+                                </span>
+                                <span className='mr-md-3 sporteens-clickable-el'>
+                                <Link to='/sale' className='my-link'>Sale</Link>
+                                </span>
+                            </div>
+
+                        }
 
                         <div className="sporteens-main-dark sporteens-items-mobile d-md-none">
                             {this.state.openToggle ? 
@@ -151,24 +162,24 @@ export class Navbar extends Component{
                     </div>
                     {
                         this.state.openToggle ? 
-                        <div className="sporteens-main-dark sporteens-header-items-mobile px-4 d-md-none">
+                        <div className="sporteens-main-dark sporteens-header-items-mobile px-4 d-md-none" onClick={this.onOpenToggle}>
                             <div className="mt-3 border-bottom sporteens-clickable-el">
-                                Home
+                               <Link className='my-link sporteens-onhover' to='/'>Home</Link> 
                             </div>
                             <div className="mt-3 border-bottom sporteens-clickable-el">
-                                Products
+                            <Link className='my-link sporteens-onhover' to='/products'>Products</Link> 
                             </div>
                             <div className="mt-3 border-bottom sporteens-clickable-el">
-                                Brands
+                            <Link className='my-link sporteens-onhover' to='/brands'>Brands</Link> 
                             </div>
                             {
                                 this.state.isLogin ? 
-                                <div className="mt-3 border-bottom sporteens-clickable-el">
-                                    Carts
+                                <div className="mt-3 border-bottom sporteens-clickable-el mb-2">
+                                    <Link className='my-link sporteens-onhover' to='/carts'>Carts</Link> 
                                 </div>
                                 :
-                                <div className="mt-3 border-bottom sporteens-clickable-el d-flex">
-                                    <Link className='my-link mr-1' to='/register'>Register</Link> / <ModalLogin isi='Login' className='ml-2'/>
+                                <div className="mt-3 border-bottom sporteens-clickable-el d-flex mb-2">
+                                    <Link  className='my-link mr-1 sporteens-onhover' to='/register'>Register</Link> / <ModalLogin isi='Login' className='ml-2 sporteens-onhover'/>
                                 </div>
                             }
                         </div>
@@ -178,6 +189,7 @@ export class Navbar extends Component{
             </div>
             </div>
         )
+        
     }
 }
 

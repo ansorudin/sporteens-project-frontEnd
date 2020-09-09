@@ -179,13 +179,55 @@ class Cart extends Component {
         })
     }
 
-    // mapDataCart = () => {
-    //     var summaryOrder = 0
-    //     this.state.dataCart.forEach((val, index) =>{
-    //         summaryOrder += val.price
-    //         console.log(summaryOrder)
-    //     })
-    // }
+   onBtnCheckout = () =>{
+        // bikin const detail yg datanya ngambil dari dataProduct
+
+       const detail = this.state.dataCart.map((val, index) => {
+           return{
+               product_name : this.state.dataProduct[index].name,
+               product_price : this.state.dataProduct[index].price,
+               product_image : this.state.dataProduct[index].image1,
+               qty : val.qty
+           }
+       })
+    //    console.log(detail)
+
+       const data = {
+           createdAt : new Date(),
+           totalPrice : this.state.summarOrder,
+           status : 'unpaid',
+           id_user : Number(localStorage.getItem('id')),
+           detail : detail
+       }
+
+    //    jika data sudah seusai post ke json
+       Axios.post(apiUrl + 'transactions', data)
+       .then((res) => {
+           if(res.status === 201){
+               var idTransaction = res.data.id
+            // hapus cart ketika post sudah berhasil
+            // looping untuk menghapus semua cart satu2 berdasarkan id carts
+               this.state.dataCart.forEach((val,index) => {
+                   Axios.delete(apiUrl + 'carts/' + val.id)
+                   .then((res) => {
+                       if(index === this.state.dataCart.length -1){
+                        //    console.log(res)
+                           alert('add to cart succes')
+                           window.location = '/checkout/' + idTransaction
+                       }
+                   })
+                   .catch((err) => {
+                       console.log(err)
+                   })
+               })
+           }
+       })
+       .catch((err) => {
+           console.log(err)
+       })
+
+
+   }
 
     render() {
         return (
@@ -193,7 +235,7 @@ class Cart extends Component {
                 {/* Cart Detail Section */}
                 <div className="container">
                     <div className="row">
-                        <div className="col-8 mt-5">
+                        <div className="col-md-8 mt-5">
                             {/* Judul */}
                             <div className="row mb-4 border-bottom font-weight-bold sporteens-font-14 py-2">
                                 <div className="col-7 ">
@@ -224,7 +266,7 @@ class Cart extends Component {
 
                         {/* Checkout Section */}
                         
-                        <div className="col-4 mt-5 d-flex flex-column">
+                        <div className="col-md-4 mt-5 d-flex flex-column">
                             <div className='border-bottom text-center'>
                                 <p className='p-0 m-0 py-2 sporteens-font-14 font-weight-bold'>Order Summary</p>
                             </div>
@@ -240,7 +282,7 @@ class Cart extends Component {
                                 <span className=' font-weight-bold'>Order Total :</span>
                                 <span>Rp. {(this.state.summarOrder - this.state.potongan).toLocaleString('id-ID')} </span>
                             </div>
-                            <input type="button" value="Checkout" className='btn tombol-dark mt-4 mb-5'/>
+                            <input onClick={this.onBtnCheckout} type="button" value="Checkout" className='btn tombol-dark mt-4 mb-5'/>
 
                         </div>
                         <div>

@@ -34,3 +34,25 @@
 }
 
 
+.card-font-listProduct-title{
+    font-size: 16px;
+}
+
+.card-font-listProduct-isi{
+    font-size: 14px;
+}
+
+
+@media (max-width: 767.98px) { 
+
+.card-font-listProduct-title{
+    font-size: 14px;
+}
+
+.card-font-listProduct-isi{
+    font-size: 12px;
+}
+
+
+
+}

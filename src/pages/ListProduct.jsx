@@ -60,27 +60,26 @@ class ListProduct extends Component {
                                 <img src={val.image1} className='card-image-top align-self-center img-fluid gambar-card img-thumbnail' alt='gambar gagal'/>
                             </div>
                                 <div><p className='p-0 m-0 text-secondary'>{val.brand}</p></div>
-                            <div className="mt-3">
-                                <p className='card-title spoerteens-font-14 font-weight-light'>{val.name}</p>
+                            <div className="mt-md-3 mt-2" >
+                                <p className='card-title spoerteens-font-14 font-weight-light card-font-listProduct-title'>{val.name}</p>
                                     {
                                     val.discount > 0? 
                                     <div>
                                         <span className='d-flex'>
-
                                     
-                                            <h6 className='card-text mr-2'>
+                                            <h6 className='card-text mr-2 card-font-listProduct-isi'>
                                                 <s>Rp. {val.price.toLocaleString('id-ID')}</s>
                                             </h6> 
                                             <span>
-                                                <h6>(-{val.discount}%)</h6>
+                                                <h6 className='card-font-listProduct-isi'>(-{val.discount}%)</h6>
                                             </span>
                                         </span>
-                                        <h6 className='card-text text-danger'>
+                                        <h6 className='card-text text-danger card-font-listProduct-isi'>
                                             Rp. {(val.price - (val.price / val.discount)).toLocaleString('id-ID')}
                                         </h6>
                                     </div>
                                     : 
-                                    <h6 className='card-text'>Rp. {val.price.toLocaleString('id-ID')}</h6>
+                                    <h6 className='card-text card-font-listProduct-isi'>Rp. {val.price.toLocaleString('id-ID')}</h6>
                                     }
                                 
                             </div>
@@ -163,9 +162,9 @@ class ListProduct extends Component {
                                 <option value="All">All Category</option>
                             {
                                 this.state.allCategories ? 
-                                this.state.allCategories.map((val) => {
+                                this.state.allCategories.map((val,index) => {
                                     return (
-                                    <option value={val}>{val}</option>
+                                    <option value={val} key={index}>{val}</option>
                                     )
                                 })
                                 :
@@ -178,9 +177,9 @@ class ListProduct extends Component {
                                 <option value="All">All Brand</option>
                                 {
                                 this.state.allBrands ? 
-                                this.state.allBrands.map((val) => {
+                                this.state.allBrands.map((val,index) => {
                                     return (
-                                    <option value={val}>{val}</option>
+                                    <option value={val} key={index}>{val}</option>
                                     )
                                 })
                                 :
@@ -195,20 +194,20 @@ class ListProduct extends Component {
 
 
                     {/* Jumbotron Section */}
-                    <div className='sporteens-jumbotron-listProduct container mt-5 mb-5'>
+                    <div className='sporteens-jumbotron-listProduct container mt-5 mb-5 d-none d-md-block'>
                         <div className="d-flex flex-column justify-content-center h-100 px-5">
                             <div className='sporteens-light'> 
-                                <h2>FIND YOUR STYLE</h2>
+                                <h2 className=''>FIND YOUR STYLE</h2>
                             </div>
-                            <div className="sporteens-light w-25">
-                                <h5>From classic to Comfort we have the style you need.</h5>
+                            <div className="sporteens-light w-50 ">
+                                <h5 className=''>From classic to Comfort we have the style you need.</h5>
                             </div>
                         </div>
                     </div>
 
                     {/* DropDown for Sort Product*/}
 
-                    <div className="container">
+                    <div className="container mt-5 mt-md-0">
                         <div className="d-flex align-items-center sporteens-font-14">
                             <div className="">
                                 <span>Sort By :</span>

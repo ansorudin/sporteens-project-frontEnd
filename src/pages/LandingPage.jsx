@@ -5,6 +5,7 @@ import Axios from 'axios';
 import apiUrl from '../support/constant/apiUrl';
 import { Link } from 'react-router-dom';
 import MyCarousel from '../component/MyCarousel';
+import Skeleton from 'react-loading-skeleton'
 
 
 
@@ -12,7 +13,8 @@ import MyCarousel from '../component/MyCarousel';
 class LandingPage extends Component {
 
     state={
-        data : null
+        data : null,
+        bestSellerData : null
     }
 
     componentDidMount(){
@@ -24,34 +26,90 @@ class LandingPage extends Component {
         .then((res) => {
             // console.log(res.data)
             this.setState({data : res.data})
+            this.renderDataBestSeller()
         })
         .catch((err) => {
             alert(err.message)
         })
+
+        
+        
     }
+
+
+    renderDataBestSeller = () => {
+        Axios.get(apiUrl + 'transactions')
+        .then((res) => {
+            var sold = []
+
+            // loping 2 kali buat dapetin detailnya
+            res.data.forEach((val) => {
+                val.detail.forEach((prod) => {
+                    // isAda true ketika nama ada dua atau lebi
+                    var isAda = false
+                    // indexAda adalah index yg namnya ada dua atau lebih
+                    var indexAda = null
+
+                    // lopping di sold yg belum ada ==> jika prod.product_name sudah ada di sold
+                    // yang artinya prod_name tersebut duplicate maka qty nya yg ditambahin bukan di push si prodnya
+                    for(var i = 0 ; i < sold.length ; i ++){
+                        if(sold[i].product_name === prod.product_name){
+                            isAda = true
+                            indexAda = i
+                        }
+                    }
+                    if(isAda){
+                        sold[indexAda].qty += prod.qty
+                    }else{
+                        sold.push(prod)
+                    }
+                })
+                sold.sort((a,b) => {
+                    return b.qty - a.qty
+                })
+            })
+            sold = sold.slice(0,4)
+            sold.forEach((val, index) => {
+              this.state.data.forEach((data) => {
+                  if(val.product_name === data.name){
+                      sold[index]['poduct_id'] = data.id
+                      sold[index]['product_discount'] = data.discount
+                  }
+              })
+            })
+            // console.log(sold)
+            this.setState({bestSellerData : sold})
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+        
+    }
+
+
 
     renderDataToJsx = () => {
         return this.state.data.map((val) => {
             if(val.discount){
                 return(
-                    <div className="col-md-2 sporteens-clickable-el h-100" key={val.id}>
+                    <div className="col-4 col-md-2 sporteens-clickable-el h-100" key={val.id}>
                         <div>
-                            <Link to={'/detail-product/' + val.id}>
+                            <Link to={'/detail-product/' + val.id} className='my-link'>
                             {/* Image */}
                             <div className='py-2'>
-                                <img src={val.image1} className='align-self-center img-fluid sporteens-thumbnail-img img-thumbnail' alt='gambar gagal'/>
+                                <img  src={val.image1} className='align-self-center img-fluid sporteens-thumbnail-img img-thumbnail' alt='gambar gagal'/>
                             </div>
                             
                             {/* Detail price etc */}
-                            <div className="mt-3 d-flex flex-column">
-                                <p className='p-0 m-0 sporteens-main-dark sporteens-font-14'>{val.name.length >= 30 ? val.name.slice(0,30) + '...' : val.name}</p>
+                            <div className="mt-md-3 mt-1 d-flex flex-column">
+                                <p className='p-0 m-0 sporteens-main-dark image-font-flash-sale-title'>{val.name.length >= 30 ? val.name.slice(0,30) + '...' : val.name}</p>
 
                                 <div className='d-flex mt-1 mb-1'>
-                                    <p className='p-0 m-0 text-secondary sporteens-font-12'> <s>Rp. {val.price.toLocaleString('id-ID')}</s> </p>
-                                    <p className='p-0 m-0 text-danger sporteens-font-12 ml-1'>(-{val.discount}%)</p>
+                                    <p className='p-0 m-0 text-secondary image-font-flash-sale-isi'> <s>Rp. {val.price.toLocaleString('id-ID')}</s> </p>
+                                    <p className='p-0 m-0 text-danger ml-1 image-font-flash-sale-isi'>(-{val.discount}%)</p>
                                 </div>
                               
-                                <p className='p-0 m-0 sporteens-main-dark sporteens-font-12 font-weight-bold'>Rp. {(val.price-(val.price * (val.discount/100))).toLocaleString('id-ID')} </p>
+                                <p className='p-0 m-0 sporteens-main-dark font-weight-bold image-font-flash-sale-isi'>Rp. {(val.price-(val.price * (val.discount/100))).toLocaleString('id-ID')} </p>
                             </div>
                             </Link>
                         </div>
@@ -64,6 +122,44 @@ class LandingPage extends Component {
             }
         })
         
+    }
+
+    bestSellerSection = () => {
+        return this.state.bestSellerData.map((val,index) => {
+            return(
+                <div className="col-4 col-md-3 sporteens-clickable-el h-100" key={index}>
+                <div>
+                    <Link to={'/detail-product/' + val.product_id} className='my-link'>
+                    {/* Image */}
+                    <div className='py-2'>
+                        <img src={val.product_image} className='align-self-center img-fluid sporteens-thumbnail-img img-thumbnail' alt='gambar gagal'/>
+                    </div>
+                    
+                    {/* Detail price etc */}
+                    <div className="mt-md-3 mt-1 d-flex flex-column">
+                        <p className='p-0 m-0 sporteens-main-dark image-font-flash-sale-title'>{val.product_name.length >= 30 ? val.product_name.slice(0,30) + '...' : val.product_name}</p>
+
+
+                        {
+                            val.product_discount ? 
+                            <span>
+                                <div className='d-flex mt-1 mb-1'>
+                                    <p className='p-0 m-0 text-secondary image-font-flash-sale-isi'> <s>Rp. {val.product_price.toLocaleString('id-ID')}</s> </p>
+                                    <p className='p-0 m-0 text-danger ml-1 image-font-flash-sale-isi'>(-{val.product_discount}%)</p>
+                                </div>
+                              
+                                <p className='p-0 m-0 sporteens-main-dark font-weight-bold image-font-flash-sale-isi'>Rp. {(val.product_price-(val.product_price * (val.product_discount/100))).toLocaleString('id-ID')} </p>
+                            </span>
+                            :
+                            <p className='p-0 m-0 sporteens-main-dark font-weight-bold image-font-flash-sale-isi'>Rp. {val.product_price.toLocaleString('id-ID')} </p>
+
+                        }
+                    </div>
+                    </Link>
+                </div>
+            </div>
+            )
+        })
     }
 
 
@@ -79,8 +175,8 @@ class LandingPage extends Component {
                 {/* Flash Sale Section */}
                 <div className="py-5 px-3 ">
                     <div className="container mt-4  ">
-                        <h3 className='p-0 m-0 sporteens-text-ditengah-line'>
-                            <span className="sporteens-text-ditengah-text">GRAB IT NOW</span>
+                        <h3 className='p-0 m-0 sporteens-text-ditengah-line my-landing-page-font'>
+                            <span className="sporteens-text-ditengah-text ">GRAB IT NOW</span>
                         </h3>
                         
                         <div  className="container-fluid mt-5  h-100 ">
@@ -105,42 +201,26 @@ class LandingPage extends Component {
 
                 {/* Bestseller Section */}
                 <div className="py-5 px-3 sporteens-bg-light-dark">
-                    <div className="container mt-3">
+                    <div className="container mt-4">
                         <h3 className='p-0 m-0 sporteens-text-ditengah-line'>
-                            <span className="sporteens-text-ditengah-text">RECOMENDED FOR YOU</span>
+                            <span className="sporteens-text-ditengah-text my-landing-page-font">RECOMENDED FOR YOU</span>
                         </h3>
-
-                        <div  className="container-fluid mt-5">
-                            <div className="row py-3 flex-nowrap " style={{overflow:'auto'}}>
+                        <div  className="container-fluid mt-5  h-100 ">
+                            <div className="row  " >
                                 
-                                {/* card image Bestseller */}
+                                {/* card image flash sale */}
 
-                                <div className="col-md-2 sporteens-clickable-el">
-                                    <div>
-                                        <Link to={'/detail-product/'}>
-                                        {/* Image */}
-                                        <div className='sporteens-thumbnail-border d-flex justify-content-center'>
-                                            <img src='https://thumblr.uniid.it/product/207022/d2202e15c4bc.jpg' className='align-self-center img-fluid sporteens-thumbnail-img' alt='gambar gagal'/>
-                                        </div>
-                                        
-                                        {/* Detail price etc */}
-                                        <div className="mt-3 d-flex flex-column">
-                                            <p className='p-0 m-0 sporteens-main-dark sporteens-font-14'>ini nama</p>
+                                {
+                                   this.state.bestSellerData !== null ?
+                                    this.bestSellerSection()
+                                   : null
+                               }
 
-                                            <div className='d-flex mt-1 mb-1'>
-                                                <p className='p-0 m-0 text-secondary sporteens-font-12'> <s>Rp. 1200000</s> </p>
-                                                <p className='p-0 m-0 text-danger sporteens-font-12 ml-1'>(-10%)</p>
-                                            </div>
-                                        
-                                            <p className='p-0 m-0 sporteens-main-dark sporteens-font-12 font-weight-bold'>Rp. 1829828 </p>
-                                        </div>
-                                        </Link>
-                                    </div>
-                                </div>
-                                {/* End card Bestseller */}
+                                {/* End card image flash sale */}
 
                             </div>
                         </div>
+                        
                     </div>
                 </div>
 

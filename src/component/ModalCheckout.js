@@ -18,7 +18,7 @@ class ModalCheckout extends Component {
                     <span className={this.props.className} onClick={() => this.handleModal()} >{this.props.isi}</span>
                     <Modal isOpen={this.state.isOpen} centered>
                         <ModalBody>
-                            <div className='border p-4'>
+                            <div className=' p-4'>
                                 <h5 className='text-center mb-3 sporteens-font-18'>Thank you </h5>
                                 <div className='d-flex'>
                                     <div className='w-25'>

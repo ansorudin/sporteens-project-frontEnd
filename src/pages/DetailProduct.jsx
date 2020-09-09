@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 import ModalCheckout from '../component/ModalCheckout';
+import { Link } from 'react-router-dom';
+
 
 
 
@@ -14,10 +16,14 @@ class DetailProduct extends Component {
         data : null,
         selectPhoto : null,
         isLogin : false,
+        isiBadge : 0,
+        dataSimilar : null
         
     }
     componentDidMount(){
         this.getDataDetailProduct()
+        // this.onSimilarProduct()
+        
     }
 
     getDataDetailProduct = () => {
@@ -28,8 +34,17 @@ class DetailProduct extends Component {
 
         Axios.get(apiUrl + 'product/' + id)
         .then((res) => {
+            var ctgr = res.data.category
+            // console.log(ctgr)
+            Axios.get(apiUrl + 'product?category=' + ctgr)
+            .then((res) => {
+                // console.log(res.data)
+                this.setState({dataSimilar : res.data})
+            })
+            .catch((err) => {
+                console.log(err)
+            })
             this.setState({data : res.data, selectPhoto : res.data.image1})
-            
         })
         .catch((err) => {
             console.log(err)
@@ -53,10 +68,12 @@ class DetailProduct extends Component {
         // console.log(id)
         Axios.get(apiUrl + 'carts?id_user=' + userId + '&id_product=' + id)
         .then((res) => {
-            console.log(res.data)
+            // console.log(res.data)
             if(res.data.length === 0){
                 Axios.post(apiUrl + 'carts/', {id_user : userId, id_product : id, qty : 1})
                 .then((res) =>{
+                    // console.log(res)
+                    // localStorage.setItem('carts', res.data.qty)
                     
                 })
                 .catch((err) => {
@@ -78,23 +95,57 @@ class DetailProduct extends Component {
         .catch((err) => {
             console.log(err)
         })
-
-
-
-        
-        
      }
 
+    mapSimilarData = () => {
+        return this.state.dataSimilar.slice(0,4).map((val, index) => {
+            return(
+                <div className="col-6 col-md-3 mt-4 mb-3 sporteens-clickable-el" key={val.id}>
+                    <div className="h-100">
+                        <Link to={'detail-product/' + val.id} className='my-link'>
+                        <div className=''>
+                            <img src={val.image1} className='card-image-top align-self-center img-fluid gambar-card img-thumbnail' alt='gambar gagal'/>
+                        </div>
+                            <div><p className='p-0 m-0 text-secondary'>{val.brand}</p></div>
+                        <div className="mt-md-3 mt-2" >
+                            <p className='card-title spoerteens-font-14 font-weight-light card-font-listProduct-title'>{val.name}</p>
+                                {
+                                val.discount > 0? 
+                                <div>
+                                    <span className='d-flex'>
+                                
+                                        <h6 className='card-text mr-2 card-font-listProduct-isi'>
+                                            <s>Rp. {val.price.toLocaleString('id-ID')}</s>
+                                        </h6> 
+                                        <span>
+                                            <h6 className='card-font-listProduct-isi'>(-{val.discount}%)</h6>
+                                        </span>
+                                    </span>
+                                    <h6 className='card-text text-danger card-font-listProduct-isi'>
+                                        Rp. {(val.price - (val.price / val.discount)).toLocaleString('id-ID')}
+                                    </h6>
+                                </div>
+                                : 
+                                <h6 className='card-text card-font-listProduct-isi'>Rp. {val.price.toLocaleString('id-ID')}</h6>
+                                }
+                            
+                        </div>
+                        </Link>
+                    </div>
+                </div>
+            )
+        })
+    }
 
    
 
     render() {
         if(this.state.data !== null){
             return (  
-                <div>
+                <div className='py-5'>
                     <div className="container sporteens-container-detail-product mb-5">
                         <div className="row h-75 mt-5">
-                            <div className="col-6 sporteens-detail-product-image ">
+                            <div className="col-md-6 sporteens-detail-product-image ">
                                 <div className="container h-100">
                                     <div className="row h-100 ">
                                         <div className=' col-12 h-75'>
@@ -126,7 +177,7 @@ class DetailProduct extends Component {
     
                                 </div>
                             </div>
-                            <div className="col-6 sporteens-detail-product-deskripsi h-100">
+                            <div className="col-md-6 sporteens-detail-product-deskripsi h-100">
                                     <div className="row h-100">
                                     <div className="col-12 deskripsi-nama  d-flex flex-column justify-content-center border-bottom">
                                         <div className='mb-3'>
@@ -184,7 +235,7 @@ class DetailProduct extends Component {
                                                     {
                                                         this.state.isLogin ?
                                                         
-                                                        <input type="button" value={<FontAwesomeIcon icon={faHeart}/>} className='btn tombol-dark' />
+                                                        <span className='btn tombol-dark' ><FontAwesomeIcon icon={faHeart}/></span>
                                                        :
                                                        <ModalLogin isi={<FontAwesomeIcon icon={faHeart} />} className='btn tombol-dark' />
                                                     }
@@ -194,6 +245,14 @@ class DetailProduct extends Component {
                                     </div>
                             </div>
                             
+                            <div><h4 className='text-center '>Similar Product</h4></div>
+                            <div className="row col-12 mb-5">
+                                {
+                                    this.state.dataSimilar ?
+                                    this.mapSimilarData() : null
+                                }
+
+                            </div>
                         </div>
                     </div>
                 </div>

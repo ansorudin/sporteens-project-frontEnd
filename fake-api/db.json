@@ -2,48 +2,20 @@
   "user": [
     {
       "id": 1,
-      "phone": "082111014768",
-      "email": "",
-      "password": "123123"
+      "phone": "",
+      "email": "admin@admin.com",
+      "password": "123",
+      "role": "admin"
     },
     {
       "email": "ahmad@gmail.com",
       "phone": "",
       "password": "123",
+      "role": "user",
       "id": 2
-    },
-    {
-      "phone": "085220407200",
-      "email": "",
-      "password": "",
-      "id": 3
     }
   ],
   "product": [
-    {
-      "id": 1,
-      "name": "Anaheim Factory Old Skool 36 DX",
-      "brand": "Vans",
-      "price": 2250000,
-      "discount": 15,
-      "Stock": 10,
-      "image1": "https://culture-kings-us.imgix.net/products/191479053601_normal_0020.jpg?v=1597012635&auto=compress,format",
-      "image2": "https://culture-kings-us.imgix.net/products/191479053601_normal_0021.jpg?v=1597012635&auto=compress,format",
-      "image3": "https://culture-kings-us.imgix.net/products/191479053601_normal_0023.jpg?v=1597012635&auto=compress,format",
-      "category": "Shoes"
-    },
-    {
-      "id": 2,
-      "name": "Air Force 1 '07",
-      "category": "Shoes",
-      "brand": "Nike",
-      "price": 9500000000,
-      "discount": 0,
-      "Stock": 2,
-      "image1": "https://culture-kings-us.imgix.net/products/05000949-YW240_normal_0021.jpg?v=1583468912&auto=compress,format",
-      "image2": "https://culture-kings-us.imgix.net/products/05000949-YW240_normal_0022.jpg?v=1583468912&auto=compress,format",
-      "image3": "https://culture-kings-us.imgix.net/products/05000949-YW240_normal_0024.jpg?v=1583468912&auto=compress,format"
-    },
     {
       "id": 3,
       "name": "Anaheim Factory Old Skool 36 DX",
@@ -165,6 +137,236 @@
       "image3": "https://culture-kings-us.imgix.net/products/4061612072317_normal_0021.jpg?v=1598336291&auto=compress,format"
     },
     {
+      "name": "a",
+      "brand": "a",
+      "price": "a",
+      "category": "a",
+      "Stock": "a",
+      "discount": "a",
+      "image1": "a",
+      "imag2": "a",
+      "image3": "a",
+      "id": 14
+    }
+  ],
+  "carts": [],
+  "transactions": [
+    {
+      "createdAt": "2020-09-07T07:23:39.855Z",
+      "totalPrice": 19002500000,
+      "status": "unpaid",
+      "id_user": 2,
+      "detail": [
+        {
+          "product_name": "Air Force 1 '07",
+          "product_price": 9500000000,
+          "product_image": "https://culture-kings-us.imgix.net/products/05000949-YW240_normal_0021.jpg?v=1583468912&auto=compress,format",
+          "qty": 2
+        },
+        {
+          "product_name": "Anaheim Factory Old Skool 36 DX",
+          "product_price": 2500000,
+          "product_image": "https://culture-kings-us.imgix.net/products/191167240610_normal_0020.jpg?v=1597012560&auto=compress,format",
+          "qty": 1
+        }
+      ],
+      "id": 2
+    },
+    {
+      "createdAt": "2020-09-08T04:54:32.434Z",
+      "totalPrice": 2500000,
+      "status": "unpaid",
+      "id_user": 1,
+      "detail": [
+        {
+          "product_name": "Anaheim Factory Old Skool 36 DX",
+          "product_price": 2500000,
+          "product_image": "https://culture-kings-us.imgix.net/products/191167240610_normal_0020.jpg?v=1597012560&auto=compress,format",
+          "qty": 1
+        }
+      ],
+      "id": 3
+    },
+    {
+      "createdAt": "2020-09-08T04:54:33.700Z",
+      "totalPrice": 2500000,
+      "status": "unpaid",
+      "id_user": 1,
+      "detail": [
+        {
+          "product_name": "Anaheim Factory Old Skool 36 DX",
+          "product_price": 2500000,
+          "product_image": "https://culture-kings-us.imgix.net/products/191167240610_normal_0020.jpg?v=1597012560&auto=compress,format",
+          "qty": 1
+        }
+      ],
+      "id": 4
+    },
+    {
+      "createdAt": "2020-09-08T04:54:33.925Z",
+      "totalPrice": 2500000,
+      "status": "unpaid",
+      "id_user": 1,
+      "detail": [
+        {
+          "product_name": "Anaheim Factory Old Skool 36 DX",
+          "product_price": 2500000,
+          "product_image": "https://culture-kings-us.imgix.net/products/191167240610_normal_0020.jpg?v=1597012560&auto=compress,format",
+          "qty": 1
+        }
+      ],
+      "id": 5
+    },
+    {
+      "createdAt": "2020-09-08T04:54:36.833Z",
+      "totalPrice": 2500000,
+      "status": "unpaid",
+      "id_user": 1,
+      "detail": [
+        {
+          "product_name": "Anaheim Factory Old Skool 36 DX",
+          "product_price": 2500000,
+          "product_image": "https://culture-kings-us.imgix.net/products/191167240610_normal_0020.jpg?v=1597012560&auto=compress,format",
+          "qty": 1
+        }
+      ],
+      "id": 6
+    },
+    {
+      "createdAt": "2020-09-08T04:54:37.346Z",
+      "totalPrice": 2500000,
+      "status": "unpaid",
+      "id_user": 1,
+      "detail": [
+        {
+          "product_name": "Anaheim Factory Old Skool 36 DX",
+          "product_price": 2500000,
+          "product_image": "https://culture-kings-us.imgix.net/products/191167240610_normal_0020.jpg?v=1597012560&auto=compress,format",
+          "qty": 1
+        }
+      ],
+      "id": 7
+    },
+    {
+      "createdAt": "2020-09-08T04:54:37.547Z",
+      "totalPrice": 2500000,
+      "status": "unpaid",
+      "id_user": 1,
+      "detail": [
+        {
+          "product_name": "Anaheim Factory Old Skool 36 DX",
+          "product_price": 2500000,
+          "product_image": "https://culture-kings-us.imgix.net/products/191167240610_normal_0020.jpg?v=1597012560&auto=compress,format",
+          "qty": 1
+        }
+      ],
+      "id": 8
+    },
+    {
+      "createdAt": "2020-09-08T04:56:50.267Z",
+      "totalPrice": 2500000,
+      "status": "unpaid",
+      "id_user": 1,
+      "detail": [
+        {
+          "product_name": "Anaheim Factory Old Skool 36 DX",
+          "product_price": 2500000,
+          "product_image": "https://culture-kings-us.imgix.net/products/191167240610_normal_0020.jpg?v=1597012560&auto=compress,format",
+          "qty": 1
+        }
+      ],
+      "id": 9
+    },
+    {
+      "createdAt": "2020-09-08T05:56:59.216Z",
+      "totalPrice": 8200000,
+      "status": "paid",
+      "id_user": 1,
+      "detail": [
+        {
+          "product_name": "Anaheim Factory Old Skool 36 DX",
+          "product_price": 2500000,
+          "product_image": "https://culture-kings-us.imgix.net/products/191167240610_normal_0020.jpg?v=1597012560&auto=compress,format",
+          "qty": 3
+        },
+        {
+          "product_name": "Authentic - All Black",
+          "product_price": 700000,
+          "product_image": "https://culture-kings-us.imgix.net/products/700053288911_normal_01.jpg?v=1574230837&auto=compress,format",
+          "qty": 1
+        }
+      ],
+      "id": 10
+    },
+    {
+      "createdAt": "2020-09-08T05:57:50.240Z",
+      "totalPrice": 2500000,
+      "status": "paid",
+      "id_user": 1,
+      "detail": [
+        {
+          "product_name": "Anaheim Factory Old Skool 36 DX",
+          "product_price": 2500000,
+          "product_image": "https://culture-kings-us.imgix.net/products/191167240610_normal_0020.jpg?v=1597012560&auto=compress,format",
+          "qty": 1
+        }
+      ],
+      "id": 11
+    },
+    {
+      "createdAt": "2020-09-08T12:23:22.240Z",
+      "totalPrice": 3145000,
+      "status": "unpaid",
+      "id_user": 1,
+      "detail": [
+        {
+          "product_name": "SK8-HI - Black and White",
+          "product_price": 850000,
+          "product_image": "https://culture-kings-us.imgix.net/products/700053630000_normal_01.jpg?v=1574230796&auto=compress,format",
+          "qty": 1
+        },
+        {
+          "product_name": "Era - Classic Black and White",
+          "product_price": 1475000,
+          "product_image": "https://culture-kings-us.imgix.net/products/05003343-YB012_normal_001.jpg?v=1578006371&auto=compress,format",
+          "qty": 1
+        },
+        {
+          "product_name": "Chuck Taylor All Star 70 High Top - Red and White",
+          "product_price": 820000,
+          "product_image": "https://culture-kings-us.imgix.net/products/888757074723_normal_0020.jpg?v=1590749172&auto=compress,format",
+          "qty": 1
+        }
+      ],
+      "id": 12
+    }
+  ],
+  "draft": [
+    {
+      "id": 1,
+      "name": "Chuck Taylor All Star 70 High Top - Red and White",
+      "brand": "Converse",
+      "price": 820000,
+      "category": "Shoes",
+      "discount": 10,
+      "Stock": 10,
+      "image1": "https://culture-kings-us.imgix.net/products/888757074723_normal_0020.jpg?v=1590749172&auto=compress,format",
+      "image2": "https://culture-kings-us.imgix.net/products/888757074723_normal_0021.jpg?v=1590749172&auto=compress,format",
+      "image3": "https://culture-kings-us.imgix.net/products/888757074723_normal_0023.jpg?v=1590749173&auto=compress,format"
+    },
+    {
+      "id": 2,
+      "name": "Air Force 1 '07",
+      "category": "Shoes",
+      "brand": "Nike",
+      "price": 9500000000,
+      "discount": 0,
+      "Stock": 2,
+      "image1": "https://culture-kings-us.imgix.net/products/05000949-YW240_normal_0021.jpg?v=1583468912&auto=compress,format",
+      "image2": "https://culture-kings-us.imgix.net/products/05000949-YW240_normal_0022.jpg?v=1583468912&auto=compress,format",
+      "image3": "https://culture-kings-us.imgix.net/products/05000949-YW240_normal_0024.jpg?v=1583468912&auto=compress,format"
+    },
+    {
       "id": 13,
       "name": "ASSC X Panda Express Hoodie",
       "brand": "ASSC",
@@ -175,38 +377,6 @@
       "image1": "https://culture-kings-us.imgix.net/products/4454569386949_normal_00020.jpg?v=1597974574&auto=compress,format",
       "image2": "https://culture-kings-us.imgix.net/products/4454569386949_normal_00030.jpg?v=1597974574&auto=compress,format",
       "image3": "https://culture-kings-us.imgix.net/products/4454569386949_normal_00060.jpg?v=1597974574&auto=compress,format"
-    }
-  ],
-  "carts": [
-    {
-      "id_user": "2",
-      "id_product": "3",
-      "qty": 3,
-      "id": 1
-    },
-    {
-      "id_user": "2",
-      "id_product": "8",
-      "qty": 1,
-      "id": 2
-    },
-    {
-      "id_user": "2",
-      "id_product": "2",
-      "qty": 1,
-      "id": 3
-    },
-    {
-      "id_user": "2",
-      "id_product": "1",
-      "qty": 2,
-      "id": 4
-    },
-    {
-      "id_user": "2",
-      "id_product": "6",
-      "qty": 1,
-      "id": 5
     }
   ]
 }
