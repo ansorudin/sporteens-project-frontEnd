@@ -1,3 +1,5 @@
+Project iseng, sebagai tugas individu dari kelas Purwadhika pembuatan web e-commerce dengan mengimplementasi React JS, Context, Bootstrap, dan terhubung ke server API.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
